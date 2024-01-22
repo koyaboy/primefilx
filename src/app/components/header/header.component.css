@@ -1,0 +1,25 @@
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    padding: 0 16px;
+    background-color: var(--semi-dark-blue);
+}
+
+ul {
+    display: flex;
+    gap: 28px;
+    align-items: center;
+}
+
+.user-image-container {
+    width: 24px;
+    height: 24px;
+    border-radius: 999px;
+    border: 4px solid var(--white);
+}
+
+.user-image-container img {
+    width: 100%
+}
