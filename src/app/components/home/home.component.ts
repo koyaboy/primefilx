@@ -11,6 +11,7 @@ import { Shows } from '../../models/shows';
 export class HomeComponent {
   showsService: ShowsService = inject(ShowsService)
   shows: Shows[] = []
+  recommendedShows: Shows[] = []
   trendingShows: Shows[] = []
 
   ngOnInit() {
@@ -20,6 +21,7 @@ export class HomeComponent {
       }
     )
 
+    this.recommendedShows = this.shows.filter((show) => show.isTrending == false)
     this.trendingShows = this.shows.filter((show) => show.isTrending == true)
   }
 }
