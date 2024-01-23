@@ -10,13 +10,12 @@ import { ShowsService } from '../../services/shows.service';
 export class SearchbarComponent {
   router: Router = inject(Router)
   showsService: ShowsService = inject(ShowsService)
+  searchValue: string = ''
 
-  constructor() {
+  constructor() { }
 
-  }
-
-  onSubmit(input: string) {
-    // this.router.navigate([], { queryParams: { search: input } })
-    this.showsService.filterShows(input)
+  updateSearchValue(value: string) {
+    this.searchValue = value
+    this.showsService.filterShows(this.searchValue)
   }
 }
