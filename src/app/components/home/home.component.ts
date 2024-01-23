@@ -11,6 +11,7 @@ import { Shows } from '../../models/shows';
 export class HomeComponent {
   showsService: ShowsService = inject(ShowsService)
   shows: Shows[] = []
+  trendingShows: Shows[] = []
 
   ngOnInit() {
     this.showsService.getShows().subscribe(
@@ -18,5 +19,7 @@ export class HomeComponent {
         this.shows = data
       }
     )
+
+    this.trendingShows = this.shows.filter((show) => show.isTrending == true)
   }
 }
