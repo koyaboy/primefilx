@@ -18,10 +18,10 @@ export class HomeComponent {
     this.showsService.getShows().subscribe(
       (data) => {
         this.shows = data
+
+        this.recommendedShows = this.shows.filter((show) => show.isTrending == false)
+        this.trendingShows = this.shows.filter((show) => show.isTrending == true)
       }
     )
-
-    this.recommendedShows = this.shows.filter((show) => show.isTrending == false)
-    this.trendingShows = this.shows.filter((show) => show.isTrending == true)
   }
 }
