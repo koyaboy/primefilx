@@ -12,12 +12,12 @@
                     <div class="trending-show-details">
                         <p>{{trendingShow.year}}</p>
 
-                        <div class="category">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="2" height="2" viewBox="0 0 2 2" fill="none">
-                                <circle opacity="0.5" cx="1" cy="1" r="1" fill="white" />
+                        <div class="trending-category">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="3" height="3" viewBox="0 0 3 3" fill="none">
+                                <circle opacity="0.5" cx="1.5" cy="1.5" r="1.5" fill="white" />
                             </svg>
 
-                            <div class="category-icon-container">
+                            <div class="trending-category-icon-container">
                                 <div [ngSwitch]="trendingShow.category">
                                     <svg *ngSwitchCase="'Movie'" width="12" height="12"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -37,9 +37,9 @@
                             </div>
                         </div>
 
-                        <div class="rating">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="2" height="2" viewBox="0 0 2 2" fill="none">
-                                <circle opacity="0.5" cx="1" cy="1" r="1" fill="white" />
+                        <div class="trending-rating">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="3" height="3" viewBox="0 0 3 3" fill="none">
+                                <circle opacity="0.5" cx="1.5" cy="1.5" r="1.5" fill="white" />
                             </svg>
                             <p>{{trendingShow.rating}}</p>
                         </div>

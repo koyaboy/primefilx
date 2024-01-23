@@ -30,19 +30,41 @@ h1 {
 .trending-show-img-container>img {
     width: 100%;
     height: 100%;
+    border-radius: 8px;
+    opacity: 0.65;
 }
 
 .trending-show-info-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
     position: absolute;
     bottom: 16px;
     left: 16px;
+    z-index: 999;
 }
 
 .trending-show-details {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     font-size: 12px;
     font-weight: 300;
     opacity: 0.75;
     color: var(--white);
+}
+
+.trending-category,
+.trending-rating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.trending-category-icon-container {
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .trending-show-title {
@@ -88,7 +110,6 @@ h1 {
 }
 
 .show-details,
-.trending-show-details,
 .category,
 .rating {
     display: flex;
