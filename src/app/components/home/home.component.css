@@ -18,6 +18,10 @@ h2 {
     margin-top: 16px;
 }
 
+.show-container {
+    position: relative;
+}
+
 .img-container {
     height: 110px;
 }
@@ -56,4 +60,18 @@ h2 {
     font-weight: 500;
     margin-top: 4px;
     color: var(--white);
+}
+
+.bookmark-button {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(16, 20, 30, 0.500647);
+    border-radius: 999px;
+    width: 32px;
+    height: 32px;
+    top: 8px;
+    right: 8px;
+    z-index: 999;
 }
