@@ -13,6 +13,17 @@ export class HomeComponent {
   shows: Shows[] = []
   recommendedShows: Shows[] = []
   trendingShows: Shows[] = []
+  filteredShows: Shows[] = []
+
+  constructor() {
+    this.showsService.filterValue.subscribe((filter) => {
+      this.filteredShows = this.shows.filter((show) => show.title.includes(filter))
+
+      if (!filter) {
+        this.filteredShows = []
+      }
+    })
+  }
 
   ngOnInit() {
     this.showsService.getShows().subscribe(

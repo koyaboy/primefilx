@@ -1,4 +1,4 @@
-<form role="search">
+<form role="search" (ngSubmit)="onSubmit(searchInput.value)">
     <label for="searchInput">
         <svg width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Search Icon">
             <path
@@ -6,6 +6,6 @@
                 fill="#FFF" />
         </svg>
 
-        <input type="text" placeholder="Search for movies or TV series" id="searchInput">
+        <input #searchInput type="text" placeholder="Search for movies or TV series" id="searchInput">
     </label>
 </form>
