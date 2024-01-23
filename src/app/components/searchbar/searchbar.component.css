@@ -1,0 +1,22 @@
+form {
+    margin-top: 24px;
+}
+
+label {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+input {
+    background-color: transparent;
+    border: none;
+    width: 100%;
+    color: var(--white);
+}
+
+input::placeholder {
+    color: var(--white);
+    opacity: 0.4979;
+    font-weight: 300;
+}
