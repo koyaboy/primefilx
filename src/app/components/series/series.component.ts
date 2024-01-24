@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ShowsService } from '../../services/shows.service';
+import { Shows } from '../../models/shows';
 
 @Component({
   selector: 'app-series',
@@ -8,8 +9,12 @@ import { ShowsService } from '../../services/shows.service';
 })
 export class SeriesComponent {
   showsService: ShowsService = inject(ShowsService)
+  series: Shows[] = []
 
-  constructor() {
-    this.showsService.setSearchCategory("TV series")
+  ngOnInit() {
+    this.showsService.getShows().subscribe((shows) => [
+      this.series = shows.filter((show) => show.category == "TV Series")
+    ])
+    this.showsService.setSearchCategory('TV series')
   }
 }
