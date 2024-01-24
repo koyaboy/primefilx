@@ -11,8 +11,16 @@ export class MoviesComponent {
 
   showsService: ShowsService = inject(ShowsService)
   movies: Shows[] = []
+  filterValue: string = ""
+  filteredMovies: Shows[] = []
 
-  constructor() { }
+  constructor() {
+    this.showsService.filterValue.subscribe((filter) => {
+      this.filterValue = filter
+      this.filteredMovies = this.movies.filter((movie) => movie.title.includes(this.filterValue))
+    })
+  }
+
   ngOnInit() {
     this.showsService.getShows().subscribe((shows) => [
       this.movies = shows.filter((show) => show.category == "Movie")
