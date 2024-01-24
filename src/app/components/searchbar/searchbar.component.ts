@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { ShowsService } from '../../services/shows.service';
+
 
 @Component({
   selector: 'app-searchbar',
@@ -19,9 +20,14 @@ export class SearchbarComponent {
     this.showsService.categoryValue.subscribe((categoryValue) => {
       this.category = categoryValue
     })
-  }
 
-  ngOnInit() { }
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.searchValue = ""
+        this.showsService.setFilterValue("")
+      }
+    })
+  }
 
   updateSearchValue(value: string) {
     let arr = value.split(' ')

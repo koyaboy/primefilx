@@ -30,8 +30,12 @@ export class ShowsService {
     this.categorySubject$.next(category)
   }
 
+  setFilterValue(value: string): void {
+    this.filterSubject$.next(value)
+  }
+
   filterShows(filter: string): string {
-    this.filterSubject$.next(filter)
+    this.setFilterValue(filter)
     return this.filterSubject$.value
   }
 }
