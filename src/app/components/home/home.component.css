@@ -1,6 +1,5 @@
 .home {
     margin-top: 24px;
-    padding-left: 16px;
 }
 
 h1 {
@@ -8,6 +7,14 @@ h1 {
     font-size: 20px;
     font-weight: 300;
     letter-spacing: -0.312px;
+}
+
+.filtered-section {
+    padding: 0 16px;
+}
+
+.trending-section {
+    padding-left: 16px;
 }
 
 .trending-shows-container {
