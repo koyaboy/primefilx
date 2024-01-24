@@ -1,10 +1,10 @@
 <section class="home">
 
-    <section *ngIf="filterValue.length !== 0; else elseBlock" class="filtered-section">
+    <div *ngIf="filterValue.length !== 0; else elseBlock">
         <app-shows-list [title]="'Found ' + filteredShows.length +  ' results for ' + filterValue"
             [Shows]="filteredShows">
         </app-shows-list>
-    </section>
+    </div>
 
     <ng-template #elseBlock>
         <section class="trending-section">
