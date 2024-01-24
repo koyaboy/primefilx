@@ -10,12 +10,23 @@ import { ShowsService } from '../../services/shows.service';
 export class SearchbarComponent {
   router: Router = inject(Router)
   showsService: ShowsService = inject(ShowsService)
-  searchValue: string = ''
+  searchValue!: string
+
 
   constructor() { }
 
   updateSearchValue(value: string) {
-    this.searchValue = value
+    let arr = value.split(' ')
+
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] !== "") {
+        arr[i] = arr[i][0].toUpperCase() + arr[i].slice(1).toLowerCase()
+      }
+    }
+
+    let transformedValue = arr.join(' ')
+
+    this.searchValue = transformedValue
     this.showsService.filterShows(this.searchValue)
   }
 }

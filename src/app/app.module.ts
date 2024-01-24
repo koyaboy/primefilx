@@ -13,9 +13,6 @@ import { MoviesComponent } from './components/movies/movies.component';
 import { SeriesComponent } from './components/series/series.component';
 import { BookmarksComponent } from './components/bookmarks/bookmarks.component';
 
-
-
-
 @NgModule({
   declarations: [
     AppComponent,

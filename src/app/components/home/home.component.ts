@@ -14,14 +14,12 @@ export class HomeComponent {
   recommendedShows: Shows[] = []
   trendingShows: Shows[] = []
   filteredShows: Shows[] = []
+  filterValue: string = ""
 
   constructor() {
     this.showsService.filterValue.subscribe((filter) => {
+      this.filterValue = filter
       this.filteredShows = this.shows.filter((show) => show.title.includes(filter))
-
-      if (!filter) {
-        this.filteredShows = []
-      }
     })
   }
 
