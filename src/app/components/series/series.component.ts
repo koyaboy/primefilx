@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { ShowsService } from '../../services/shows.service';
 
 @Component({
   selector: 'app-series',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrl: './series.component.css'
 })
 export class SeriesComponent {
+  showsService: ShowsService = inject(ShowsService)
 
+  constructor() {
+    this.showsService.setSearchCategory("TV series")
+  }
 }

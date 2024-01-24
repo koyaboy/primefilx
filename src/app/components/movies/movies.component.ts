@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { ShowsService } from '../../services/shows.service';
 
 @Component({
   selector: 'app-movies',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class MoviesComponent {
 
+  showsService: ShowsService = inject(ShowsService)
+
+  ngOnInit() {
+    this.showsService.setSearchCategory('movies')
+  }
 }

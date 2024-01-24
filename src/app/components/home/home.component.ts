@@ -32,5 +32,7 @@ export class HomeComponent {
         this.trendingShows = this.shows.filter((show) => show.isTrending == true)
       }
     )
+
+    this.showsService.setSearchCategory('movies or TV series')
   }
 }

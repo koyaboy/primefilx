@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -15,10 +16,18 @@ export class ShowsService {
   private filterSubject$ = new BehaviorSubject<string>('')
   filterValue = this.filterSubject$.asObservable()
 
+  private categorySubject$ = new BehaviorSubject<string>('')
+  categoryValue = this.categorySubject$.asObservable()
+
+
   constructor() { }
 
   getShows(): Observable<Shows[]> {
     return this.http.get<Shows[]>(this.apiUrl)
+  }
+
+  setSearchCategory(category: string): void {
+    this.categorySubject$.next(category)
   }
 
   filterShows(filter: string): string {

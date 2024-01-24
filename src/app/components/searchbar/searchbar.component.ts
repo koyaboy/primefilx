@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ShowsService } from '../../services/shows.service';
 
 @Component({
@@ -9,11 +9,19 @@ import { ShowsService } from '../../services/shows.service';
 })
 export class SearchbarComponent {
   router: Router = inject(Router)
+  route: ActivatedRoute = inject(ActivatedRoute)
   showsService: ShowsService = inject(ShowsService)
   searchValue!: string
+  category: string = ''
 
 
-  constructor() { }
+  constructor() {
+    this.showsService.categoryValue.subscribe((categoryValue) => {
+      this.category = categoryValue
+    })
+  }
+
+  ngOnInit() { }
 
   updateSearchValue(value: string) {
     let arr = value.split(' ')

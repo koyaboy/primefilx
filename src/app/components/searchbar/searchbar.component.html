@@ -7,6 +7,6 @@
         </svg>
 
         <input [ngModel]="searchValue" (ngModelChange)="updateSearchValue($event)" type="text"
-            placeholder="Search for movies or TV series" id="searchInput" name="searchInput">
+            [placeholder]="'Search for ' +  category" id="searchInput" name="searchInput">
     </label>
 </form>
