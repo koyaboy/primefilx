@@ -1,6 +1,5 @@
 <div *ngIf="filterValue.length !== 0; else elseBlock">
-    <app-shows-list [title]="'Found ' + filteredMovies.length +  ' results for ' + filterValue"
-        [Shows]="filteredMovies">
+    <app-shows-list title="Found {{filteredMovies.length}} results for '{{filterValue}}'" [Shows]="filteredMovies">
     </app-shows-list>
 </div>
 
