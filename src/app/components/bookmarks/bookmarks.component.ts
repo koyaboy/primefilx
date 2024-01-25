@@ -12,6 +12,15 @@ export class BookmarksComponent {
   bookmarkedShows: Shows[] = []
   bookmarkedMovies: Shows[] = []
   bookmarkedSeries: Shows[] = []
+  filteredBookmarks: Shows[] = []
+  filterValue: string = ""
+
+  constructor() {
+    this.showsService.filterValue.subscribe((filter) => {
+      this.filterValue = filter
+      this.filteredBookmarks = this.bookmarkedShows.filter((bookmarkedShow) => bookmarkedShow.title.includes(this.filterValue))
+    })
+  }
 
   ngOnInit() {
     this.showsService.getShows().subscribe((shows) => {

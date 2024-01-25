@@ -1,2 +1,10 @@
-<app-shows-list title="Bookmarked Movies" [Shows]="bookmarkedMovies"></app-shows-list>
-<app-shows-list title="Bookmarked Series" [Shows]="bookmarkedSeries"></app-shows-list>
+<div *ngIf="filterValue.length !== 0; else elseBlock">
+    <app-shows-list title="Found {{filteredBookmarks.length}} results for '{{filterValue}}'"
+        [Shows]="filteredBookmarks">
+    </app-shows-list>
+</div>
+
+<ng-template #elseBlock>
+    <app-shows-list title="Bookmarked Movies" [Shows]="bookmarkedMovies"></app-shows-list>
+    <app-shows-list title="Bookmarked Series" [Shows]="bookmarkedSeries"></app-shows-list>
+</ng-template>
