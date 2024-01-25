@@ -10,6 +10,15 @@ import { Shows } from '../../models/shows';
 export class SeriesComponent {
   showsService: ShowsService = inject(ShowsService)
   series: Shows[] = []
+  filteredSeries: Shows[] = []
+  filterValue: string = ""
+
+  constructor() {
+    this.showsService.filterValue.subscribe((filter) => {
+      this.filterValue = filter
+      this.filteredSeries = this.series.filter((show) => show.title.includes(this.filterValue))
+    })
+  }
 
   ngOnInit() {
     this.showsService.getShows().subscribe((shows) => [
