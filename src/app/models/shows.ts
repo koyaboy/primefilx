@@ -1,4 +1,5 @@
 export interface Shows {
+    _id: string,
     title: string,
     thumbnail: {
         trending: {

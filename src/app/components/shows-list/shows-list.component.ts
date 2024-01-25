@@ -1,5 +1,6 @@
-import { Component, Input, Renderer2, inject } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { Shows } from '../../models/shows';
+import { ShowsService } from '../../services/shows.service';
 
 @Component({
   selector: 'app-shows-list',
@@ -10,9 +11,11 @@ export class ShowsListComponent {
   @Input() title!: string
   @Input() Shows!: Shows[]
 
-  renderer: Renderer2 = inject(Renderer2)
+  showsService: ShowsService = inject(ShowsService)
 
   toggleBookmark(show: Shows) {
     show.isBookmarked = !show.isBookmarked
+
+    this.showsService.updateBookmark(show._id).subscribe()
   }
 }

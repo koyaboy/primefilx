@@ -35,4 +35,10 @@ export class HomeComponent {
 
     this.showsService.setSearchCategory('movies or TV series')
   }
+
+  toggleBookmark(show: Shows) {
+    show.isBookmarked = !show.isBookmarked
+
+    this.showsService.updateBookmark(show._id).subscribe()
+  }
 }

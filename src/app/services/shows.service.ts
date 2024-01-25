@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ShowsService {
-  private apiUrl = "http://localhost:5000/shows"
+  private apiUrl = "http://localhost:8000/shows"
 
   http: HttpClient = inject(HttpClient)
 
@@ -24,6 +24,10 @@ export class ShowsService {
 
   getShows(): Observable<Shows[]> {
     return this.http.get<Shows[]>(this.apiUrl)
+  }
+
+  updateBookmark(id: string): Observable<Shows> {
+    return this.http.put<Shows>(`${this.apiUrl}/${id}`, {})
   }
 
   setSearchCategory(category: string): void {
