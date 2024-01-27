@@ -17,5 +17,11 @@ export class ShowsListComponent {
     show.isBookmarked = !show.isBookmarked
 
     this.showsService.updateBookmark(show._id).subscribe()
+
+    if (this.title == "Bookmarked Movies" || this.title == "Bookmarked Series") {
+      const index = this.Shows.indexOf(show)
+      this.Shows.splice(index, 1)
+    }
+
   }
 }
