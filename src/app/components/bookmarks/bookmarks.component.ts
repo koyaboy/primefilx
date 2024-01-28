@@ -25,9 +25,13 @@ export class BookmarksComponent {
   ngOnInit() {
     this.showsService.getShows().subscribe((shows) => {
       this.bookmarkedShows = shows.filter((show) => show.isBookmarked == true)
-      this.bookmarkedMovies = shows.filter((show) => show.isBookmarked == true && show.category == "Movie")
-      this.bookmarkedSeries = shows.filter((show) => show.isBookmarked == true && show.category == "TV Series")
+      this.bookmarkedMovies = this.bookmarkedShows.filter((show) => show.isBookmarked == true && show.category == "Movie")
+      this.bookmarkedSeries = this.bookmarkedShows.filter((show) => show.isBookmarked == true && show.category == "TV Series")
     })
     this.showsService.setSearchCategory('bookmarked shows')
+  }
+
+  onShowsChanged(updatedBookmarkedShows: Shows[]): void {
+    this.bookmarkedShows = updatedBookmarkedShows;
   }
 }
