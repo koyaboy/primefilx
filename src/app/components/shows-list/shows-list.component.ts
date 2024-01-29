@@ -18,7 +18,9 @@ export class ShowsListComponent {
   showsService: ShowsService = inject(ShowsService)
 
   ngOnInit() {
-    this.Shows = this.Shows.filter((show) => show.isBookmarked)
+    if (this.title == "Bookmarked Movies" || this.title == "Bookmarked Series") {
+      this.Shows = this.Shows.filter((show) => show.isBookmarked)
+    }
   }
 
   updateBookmarkedShows(): void {
