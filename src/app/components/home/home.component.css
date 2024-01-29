@@ -17,7 +17,10 @@ h1 {
     display: flex;
     gap: 16px;
     margin-top: 16px;
-    overflow: scroll;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    scrollbar-color: #888 transparent;
+    scrollbar-width: thin;
 }
 
 .trending-show {
@@ -74,4 +77,8 @@ h1 {
     font-size: 15px;
     font-weight: 500;
     color: var(--white);
+}
+
+::-webkit-scrollbar {
+    display: none;
 }
