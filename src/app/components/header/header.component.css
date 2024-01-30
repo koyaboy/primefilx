@@ -27,3 +27,18 @@ ul {
 .active-link svg path {
     fill: var(--white);
 }
+
+@media screen and (min-width:743px) {
+    header {
+        margin-left: 25px;
+        margin-right: 25px;
+        border-radius: 10px;
+        height: 72px;
+        padding-left: 24px;
+    }
+
+    .user-image-container {
+        width: 32px;
+        height: 32px;
+    }
+}
