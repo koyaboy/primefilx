@@ -12,7 +12,10 @@
             <div class="trending-shows-container">
                 <div class="trending-show" *ngFor="let trendingShow of trendingShows">
                     <div class="trending-show-img-container">
-                        <img [src]="trendingShow.thumbnail.trending.small" [alt]="trendingShow.title + 'image'">
+                        <img class="small-screen-image" [src]="trendingShow.thumbnail.trending.small"
+                            [alt]="trendingShow.title + 'image'">
+                        <img class="large-screen-img" [src]="trendingShow.thumbnail.trending.small"
+                            [alt]="trendingShow.title + 'image'">
                     </div>
 
                     <div class="trending-show-info-container">

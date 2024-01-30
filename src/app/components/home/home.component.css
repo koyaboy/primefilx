@@ -82,3 +82,53 @@ h1 {
 ::-webkit-scrollbar {
     display: none;
 }
+
+.small-screen-image {
+    display: block;
+}
+
+.large-screen-image {
+    display: none;
+}
+
+@media screen and (min-width:743px) {
+    .trending-section {
+        padding-left: 25px;
+    }
+
+    .trending-shows-container {
+        margin-top: 25px;
+    }
+
+    .trending-show-img-container {
+        width: 470px;
+        height: 230px;
+    }
+
+    .trending-show-info-container {
+        bottom: 24px;
+        left: 24px;
+    }
+
+    .trending-show-title {
+        font-size: 1.5rem;
+    }
+
+    .trending-show-details {
+        font-size: 0.98rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+        letter-spacing: -0.5px;
+    }
+
+    .small-screen-image {
+        display: none;
+    }
+
+    .large-screen-image {
+        display: block;
+    }
+
+}
