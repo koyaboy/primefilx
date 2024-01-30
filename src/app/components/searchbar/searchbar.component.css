@@ -14,6 +14,7 @@ input {
     border: none;
     width: 100%;
     color: var(--white);
+    font-weight: 300;
 }
 
 input::placeholder {
@@ -41,6 +42,5 @@ input::placeholder {
 
     input::placeholder {
         font-size: 1.5rem;
-        font-weight: 400;
     }
 }
