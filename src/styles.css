@@ -26,6 +26,11 @@ body {
     z-index: 999;
 }
 
+.bookmark-button div {
+    display: flex;
+    align-items: center;
+}
+
 /* CSS RESET */
 html,
 body,
