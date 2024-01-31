@@ -42,3 +42,23 @@ ul {
         height: 32px;
     }
 }
+
+
+@media screen and (min-width:1280px) {
+    header {
+        flex-direction: column;
+        position: absolute;
+        width: 96px;
+        height: 960px;
+        padding: 38px 0;
+        margin-left: 32px;
+        margin-right: 0;
+        border-radius: 20px;
+    }
+
+    ul {
+        flex-direction: column;
+        position: relative;
+        bottom: 18em;
+    }
+}

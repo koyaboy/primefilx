@@ -62,7 +62,8 @@
     color: var(--white);
 }
 
-.medium-screen {
+.medium-screen,
+.large-screen {
     display: none;
 }
 
@@ -106,5 +107,30 @@
 
     .bookmark-button {
         right: 16px;
+    }
+}
+
+@media screen and (min-width:1280px) {
+    .shows-section {
+        padding: 0 36px;
+    }
+
+    .shows-container {
+        grid-template-columns: repeat(4, 1fr);
+        column-gap: 40px;
+        row-gap: 32px;
+        margin-top: 32px;
+    }
+
+    .img-container {
+        height: 174px;
+    }
+
+    .medium-screen {
+        display: none;
+    }
+
+    .large-screen {
+        display: block;
     }
 }

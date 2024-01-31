@@ -92,6 +92,10 @@ h1 {
 }
 
 @media screen and (min-width:743px) {
+    .home {
+        margin-top: 34px;
+    }
+
     .trending-section {
         padding-left: 25px;
     }
@@ -131,4 +135,10 @@ h1 {
         display: block;
     }
 
+}
+
+@media screen and (min-width:1280px) {
+    .trending-section {
+        padding-left: 36px;
+    }
 }

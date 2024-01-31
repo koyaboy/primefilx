@@ -1,5 +1,17 @@
 .app {
     min-height: 100vh;
     background-color: var(--dark-blue);
-    padding-top: 23px;
+    padding-bottom: 23px;
+}
+
+@media screen and (min-width:743px) {
+    .app {
+        padding-top: 23px;
+    }
+}
+
+@media screen and (min-width:1280px) {
+    main {
+        margin-left: 128px;
+    }
 }
