@@ -4,7 +4,8 @@
     <div class="shows-container">
         <div class="show-container" *ngFor="let show of Shows">
             <div class="img-container">
-                <img [src]="show.thumbnail.regular.small" [alt]="show.title + ' thumbnail'">
+                <img class="small-screen" [src]="show.thumbnail.regular.small" [alt]="show.title + ' thumbnail'" />
+                <img class="medium-screen" [src]="show.thumbnail.regular.medium" alt="{{ show.title }} 'thumbnail'" />
             </div>
 
             <div class="show-details">
@@ -52,10 +53,12 @@
                 </div>
 
                 <ng-template #elseBlock>
-                    <svg width="12" height="14" xmlns="http://www.w3.org/2000/svg">
-                        <path d="m10.518.75.399 12.214-5.084-4.24-4.535 4.426L.75 1.036l9.768-.285Z" stroke="#FFF"
-                            stroke-width="1.5" fill="none" />
-                    </svg>
+                    <div>
+                        <svg width="12" height="14" xmlns="http://www.w3.org/2000/svg">
+                            <path d="m10.518.75.399 12.214-5.084-4.24-4.535 4.426L.75 1.036l9.768-.285Z" stroke="#FFF"
+                                stroke-width="1.5" fill="none" />
+                        </svg>
+                    </div>
                 </ng-template>
             </button>
         </div>
