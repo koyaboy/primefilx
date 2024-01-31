@@ -24,11 +24,24 @@ body {
     top: 8px;
     right: 8px;
     z-index: 999;
+    transition: all 0.3s ease;
 }
 
 .bookmark-button div {
     display: flex;
     align-items: center;
+}
+
+.bookmark-button:hover {
+    background-color: white;
+}
+
+.bookmark-button:hover .bookmarked-svg path {
+    fill: #10141E;
+}
+
+.bookmark-button:hover .unbookmarked-svg path {
+    stroke: #10141E;
 }
 
 /* CSS RESET */
@@ -165,6 +178,7 @@ table {
 button {
     background-color: transparent;
     border: none;
+    cursor: pointer;
 }
 
 @media screen and (min-width:743px) {
