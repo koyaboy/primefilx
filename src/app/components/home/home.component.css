@@ -27,6 +27,38 @@ h1 {
     position: relative;
 }
 
+.trending-show:hover img {
+    opacity: 0.5;
+}
+
+.trending-show:hover .play-button-container {
+    display: flex;
+}
+
+.play-button-container {
+    display: none;
+    align-items: center;
+    gap: 20px;
+    padding-left: 10px;
+    position: absolute;
+    width: 117px;
+    height: 48px;
+    background-color: rgba(255, 255, 255, 0.25);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 28.5px;
+    z-index: 999;
+}
+
+
+.play-button-container p {
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: -1px;
+    color: white
+}
+
 .trending-show-img-container {
     width: 240px;
     height: 140px;
