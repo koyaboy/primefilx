@@ -1,12 +1,19 @@
-<div *ngIf="filterValue.length !== 0; else elseBlock">
-    <app-shows-list title="Found {{filteredBookmarks.length}} results for '{{filterValue}}'" [Shows]="filteredBookmarks"
-        filterType="bookmark-filter" (updatedShows)="onShowsChanged($event)">
-    </app-shows-list>
-</div>
+<ng-container *ngIf="isLoading; else showBookmarks">
+    <app-skeleton title="Bookmarked Movies"></app-skeleton>
+    <app-skeleton title="Bookmarked Series"></app-skeleton>
+</ng-container>
 
-<ng-template #elseBlock>
-    <app-shows-list title="Bookmarked Movies" [Shows]="bookmarkedMovies"
-        (updatedShows)="onShowsChanged($event)"></app-shows-list>
-    <app-shows-list title="Bookmarked Series" [Shows]="bookmarkedSeries"
-        (updatedShows)="onShowsChanged($event)"></app-shows-list>
+<ng-template #showBookmarks>
+    <div *ngIf="!isLoading && filterValue.length !== 0">
+        <app-shows-list title="Found {{filteredBookmarks.length}} results for '{{filterValue}}'"
+            [Shows]="filteredBookmarks" filterType="bookmark-filter" (updatedShows)="onShowsChanged($event)">
+        </app-shows-list>
+    </div>
+
+    <div *ngIf="!isLoading && filterValue.length==0">
+        <app-shows-list title="Bookmarked Movies" [Shows]="bookmarkedMovies"
+            (updatedShows)="onShowsChanged($event)"></app-shows-list>
+        <app-shows-list title="Bookmarked Series" [Shows]="bookmarkedSeries"
+            (updatedShows)="onShowsChanged($event)"></app-shows-list>
+    </div>
 </ng-template>

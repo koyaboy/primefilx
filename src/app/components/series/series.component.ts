@@ -12,11 +12,16 @@ export class SeriesComponent {
   series: Shows[] = []
   filteredSeries: Shows[] = []
   filterValue: string = ""
+  isLoading!: boolean
 
   constructor() {
     this.showsService.filterValue.subscribe((filter) => {
       this.filterValue = filter
       this.filteredSeries = this.series.filter((show) => show.title.includes(this.filterValue))
+    })
+
+    this.showsService.isLoading.subscribe((loadingValue) => {
+      this.isLoading = loadingValue
     })
   }
 

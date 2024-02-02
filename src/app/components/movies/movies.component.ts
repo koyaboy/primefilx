@@ -13,11 +13,16 @@ export class MoviesComponent {
   movies: Shows[] = []
   filterValue: string = ""
   filteredMovies: Shows[] = []
+  isLoading!: boolean
 
   constructor() {
     this.showsService.filterValue.subscribe((filter) => {
       this.filterValue = filter
       this.filteredMovies = this.movies.filter((movie) => movie.title.includes(this.filterValue))
+    })
+
+    this.showsService.isLoading.subscribe((loadingValue) => {
+      this.isLoading = loadingValue
     })
   }
 

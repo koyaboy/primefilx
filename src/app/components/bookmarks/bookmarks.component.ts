@@ -14,11 +14,16 @@ export class BookmarksComponent {
   bookmarkedSeries: Shows[] = []
   filteredBookmarks: Shows[] = []
   filterValue: string = ""
+  isLoading!: boolean
 
   constructor() {
     this.showsService.filterValue.subscribe((filter) => {
       this.filterValue = filter
       this.filteredBookmarks = this.bookmarkedShows.filter((bookmarkedShow) => bookmarkedShow.title.includes(this.filterValue))
+    })
+
+    this.showsService.isLoading.subscribe((loadingValue) => {
+      this.isLoading = loadingValue
     })
   }
 

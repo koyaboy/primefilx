@@ -1,8 +1,15 @@
-<div *ngIf="filterValue.length !== 0; else elseBlock">
-    <app-shows-list title="Found {{filteredSeries.length}} results for '{{filterValue}}'" [Shows]="filteredSeries">
-    </app-shows-list>
-</div>
+<ng-container *ngIf="isLoading; else showSeries">
+    <app-skeleton title="TV Series"></app-skeleton>
+</ng-container>
 
-<ng-template #elseBlock>
-    <app-shows-list title="TV Series" [Shows]="series"></app-shows-list>
+
+<ng-template #showSeries>
+    <div *ngIf="!isLoading && filterValue.length !== 0">
+        <app-shows-list title="Found {{filteredSeries.length}} results for '{{filterValue}}'" [Shows]="filteredSeries">
+        </app-shows-list>
+    </div>
+
+    <div *ngIf="!isLoading && filterValue.length==0">
+        <app-shows-list title="TV Series" [Shows]="series"></app-shows-list>
+    </div>
 </ng-template>

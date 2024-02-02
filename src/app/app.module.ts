@@ -13,9 +13,13 @@ import { MoviesComponent } from './components/movies/movies.component';
 import { SeriesComponent } from './components/series/series.component';
 import { BookmarksComponent } from './components/bookmarks/bookmarks.component';
 import { ShowsListComponent } from './components/shows-list/shows-list.component';
+import { SkeletonLoaderDirective } from './directives/skeleton-loader.directive';
+import { SkeletonComponent } from './components/skeleton/skeleton.component';
+import { TrendingSkeletonComponent } from './components/trending-skeleton/trending-skeleton.component';
 
 @NgModule({
   declarations: [
+    SkeletonLoaderDirective,
     AppComponent,
     HeaderComponent,
     SearchbarComponent,
@@ -23,7 +27,9 @@ import { ShowsListComponent } from './components/shows-list/shows-list.component
     MoviesComponent,
     SeriesComponent,
     BookmarksComponent,
-    ShowsListComponent
+    ShowsListComponent,
+    SkeletonComponent,
+    TrendingSkeletonComponent,
   ],
   imports: [
     BrowserModule,

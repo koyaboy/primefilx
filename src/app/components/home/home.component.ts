@@ -15,11 +15,16 @@ export class HomeComponent {
   trendingShows: Shows[] = []
   filteredShows: Shows[] = []
   filterValue: string = ""
+  isLoading!: boolean
 
   constructor() {
     this.showsService.filterValue.subscribe((filter) => {
       this.filterValue = filter
       this.filteredShows = this.shows.filter((show) => show.title.includes(filter))
+    })
+
+    this.showsService.isLoading.subscribe((loadingValue) => {
+      this.isLoading = loadingValue
     })
   }
 

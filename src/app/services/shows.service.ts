@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { Shows } from '../models/shows';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { finalize, delay } from 'rxjs/operators';
 
 
 
@@ -19,11 +20,20 @@ export class ShowsService {
   private categorySubject$ = new BehaviorSubject<string>('')
   categoryValue = this.categorySubject$.asObservable()
 
+  private isLoadingSubject$ = new BehaviorSubject<boolean>(false)
+  isLoading = this.isLoadingSubject$.asObservable()
+
 
   constructor() { }
 
   getShows(): Observable<Shows[]> {
-    return this.http.get<Shows[]>(this.apiUrl)
+    this.isLoadingSubject$.next(true)
+
+    return this.http.get<Shows[]>(this.apiUrl).pipe(
+      finalize(() => {
+        this.isLoadingSubject$.next(false)
+      })
+    )
   }
 
   updateBookmark(id: string): Observable<Shows> {
