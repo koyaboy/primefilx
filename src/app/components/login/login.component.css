@@ -9,7 +9,6 @@ form {
     background-color: var(--semi-dark-blue);
     margin-top: 4em;
     width: 327px;
-    height: 365px;
     padding: 28px;
     border-radius: 10px;
 }
@@ -19,6 +18,18 @@ h1 {
     margin-bottom: 0.5em;
     font-size: 2rem;
     font-weight: 300;
+}
+
+.field {
+    position: relative;
+}
+
+.error-message {
+    color: var(--red);
+    font-size: 15px;
+    position: absolute;
+    top: 3.25em;
+    right: 0;
 }
 
 input {
@@ -32,6 +43,10 @@ input {
     outline: none;
     border-bottom: 1px solid var(--greyish-blue);
     background-color: transparent;
+}
+
+input.invalid {
+    border-bottom: 1px solid var(--red);
 }
 
 input::placeholder {

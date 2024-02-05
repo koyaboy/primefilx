@@ -11,16 +11,33 @@
         <h1>Login</h1>
 
         <div class="field">
-            <input type="text" formControlName="email" placeholder="Email address" />
+            <input type="text" formControlName="email" placeholder="Email address"
+                [class.invalid]="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)" />
+
+            <span class="error-message"
+                *ngIf="loginForm.get('email')?.hasError('required') && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)">
+                Can't be empty
+            </span>
+
         </div>
 
         <div class="field">
-            <input type="text" formControlName="password" placeholder="Password" />
+            <input type="text" formControlName="password" placeholder="Password"
+                [class.invalid]="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)" />
+
+            <span class="error-message"
+                *ngIf="loginForm.get('password')?.hasError('required') && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)">
+                Can't be empty
+            </span>
         </div>
 
         <div>
-            <button type="submit">Login to your account</button>
+            <button type="submit" [disabled]="loginForm.invalid"
+                [ngStyle]="{'opacity': loginForm.invalid ? '0.5' : '1', 'cursor': loginForm.invalid ? 'not-allowed' : 'pointer'}">
+                Login to your account
+            </button>
         </div>
+
 
         <div class="sign-up-container">
             <p>Don't have an account?<span><a> Sign Up</a></span></p>
