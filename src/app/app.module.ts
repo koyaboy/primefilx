@@ -3,7 +3,7 @@ import { BrowserModule, provideClientHydration } from '@angular/platform-browser
 
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -16,6 +16,7 @@ import { ShowsListComponent } from './components/shows-list/shows-list.component
 import { SkeletonLoaderDirective } from './directives/skeleton-loader.directive';
 import { SkeletonComponent } from './components/skeleton/skeleton.component';
 import { TrendingSkeletonComponent } from './components/trending-skeleton/trending-skeleton.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -30,10 +31,12 @@ import { TrendingSkeletonComponent } from './components/trending-skeleton/trendi
     ShowsListComponent,
     SkeletonComponent,
     TrendingSkeletonComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
   ],
