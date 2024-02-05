@@ -22,7 +22,7 @@
         </div>
 
         <div class="field">
-            <input type="text" formControlName="password" placeholder="Password"
+            <input type="password" formControlName="password" placeholder="Password"
                 [class.invalid]="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)" />
 
             <span class="error-message"
