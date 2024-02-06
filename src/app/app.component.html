@@ -1,8 +1,14 @@
 <div class="app">
-    <!-- <app-header></app-header>
-    <main>
-        <app-searchbar></app-searchbar>
-        <router-outlet></router-outlet>
-    </main> -->
-    <app-login></app-login>
+    <div *ngIf="isAuthenticated; else login">
+        <app-header></app-header>
+        <main>
+            <app-searchbar></app-searchbar>
+            <router-outlet></router-outlet>
+        </main>
+    </div>
+
+    <ng-template #login>
+        <app-login></app-login>
+    </ng-template>
+
 </div>

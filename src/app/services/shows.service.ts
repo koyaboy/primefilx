@@ -29,7 +29,7 @@ export class ShowsService {
   getShows(): Observable<Shows[]> {
     this.isLoadingSubject$.next(true)
 
-    return this.http.get<Shows[]>(this.apiUrl).pipe(
+    return this.http.get<Shows[]>(this.apiUrl, { withCredentials: true }).pipe(
       finalize(() => {
         this.isLoadingSubject$.next(false)
       })
