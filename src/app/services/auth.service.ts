@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,13 +10,21 @@ export class AuthService {
 
   isAuthenticatedSubject = new BehaviorSubject<boolean>(false)
 
-  constructor(private cookieService: CookieService, private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  getToken() {
-    return this.cookieService.check('jwt');
+  isAuthenticated() {
+    return this.http.get<any>(`${this.apiUrl}/is-authenticated`, { withCredentials: true }).pipe(
+      map(res => {
+        return res.isAuthenticated === true ? true : false
+      })
+    )
   }
 
   login(email: string, password: string) {
     return this.http.post<any>(`${this.apiUrl}/login`, { email, password }, { withCredentials: true })
+  }
+
+  logout() {
+    return this.http.post<any>(`${this.apiUrl}/logout`, {}, { withCredentials: true })
   }
 }

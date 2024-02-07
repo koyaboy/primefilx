@@ -1,6 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -10,17 +11,24 @@ import { Subscription } from 'rxjs';
 })
 export class AppComponent implements OnDestroy {
   title = 'entertainment-web-app-angular';
-  isAuthenticated: boolean = false;
   private subscription: Subscription;
 
-  constructor(private auth: AuthService) {
-    this.subscription = this.auth.isAuthenticatedSubject.subscribe(authenticationStatus => {
-      this.isAuthenticated = authenticationStatus;
+  constructor(public auth: AuthService, private router: Router) {
+    this.subscription = this.auth.isAuthenticated().subscribe({
+      next: res => {
+        if (res === true) {
+          this.router.navigate(['/']);
+        } else {
+          this.router.navigate(['/login'])
+        }
+      },
+      error: err => console.log(err)
     });
   }
 
   ngOnDestroy() {
-    // Unsubscribe to avoid memory leaks
-    this.subscription.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }

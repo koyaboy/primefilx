@@ -2,11 +2,10 @@ import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -21,7 +20,8 @@ import { SkeletonComponent } from './components/skeleton/skeleton.component';
 import { TrendingSkeletonComponent } from './components/trending-skeleton/trending-skeleton.component';
 import { LoginComponent } from './components/login/login.component';
 
-import { CookieService } from 'ngx-cookie-service';
+import { unauthorizedInterceptor } from './interceptors/unauthorized.interceptor';
+import { LayoutComponent } from './components/layout/layout.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +37,7 @@ import { CookieService } from 'ngx-cookie-service';
     SkeletonComponent,
     TrendingSkeletonComponent,
     LoginComponent,
+    LayoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,12 +45,13 @@ import { CookieService } from 'ngx-cookie-service';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    HttpClientModule,
     ToastrModule.forRoot()
   ],
   providers: [
     provideClientHydration(),
-    CookieService
+    provideHttpClient(
+      withInterceptors([unauthorizedInterceptor])
+    )
   ],
   bootstrap: [AppComponent]
 })
