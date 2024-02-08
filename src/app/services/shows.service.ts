@@ -37,7 +37,7 @@ export class ShowsService {
   }
 
   updateBookmark(id: string): Observable<Shows> {
-    return this.http.put<Shows>(`${this.apiUrl}/${id}`, {})
+    return this.http.put<Shows>(`${this.apiUrl}/${id}`, {}, { withCredentials: true })
   }
 
   setSearchCategory(category: string): void {

@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common';
 
 
 @Component({
@@ -10,10 +11,13 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent {
 
-  constructor(private auth: AuthService, private route: Router) { }
+  constructor(private auth: AuthService, private route: Router, @Inject(PLATFORM_ID) private platformId: object) { }
 
   logout() {
     this.auth.logout().subscribe(() => {
+      if (isPlatformBrowser(this.platformId)) {
+        localStorage.removeItem("user")
+      }
       this.route.navigate(['/login'])
     })
   }

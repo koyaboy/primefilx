@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, map } from 'rxjs';
+import { User } from '../models/user';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -8,20 +9,24 @@ import { BehaviorSubject, map } from 'rxjs';
 export class AuthService {
   private apiUrl = "http://localhost:8000/user"
 
-  isAuthenticatedSubject = new BehaviorSubject<boolean>(false)
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, private http: HttpClient) { }
 
-  constructor(private http: HttpClient) { }
-
-  isAuthenticated() {
-    return this.http.get<any>(`${this.apiUrl}/is-authenticated`, { withCredentials: true }).pipe(
-      map(res => {
-        return res.isAuthenticated === true ? true : false
-      })
-    )
+  refreshToken() {
+    return this.http.get<any>(`${this.apiUrl}/refresh-token`, { withCredentials: true })
   }
 
   login(email: string, password: string) {
     return this.http.post<any>(`${this.apiUrl}/login`, { email, password }, { withCredentials: true })
+  }
+
+  getUser(email: string) {
+    return this.http.post<User>(`${this.apiUrl}/getUser`, { email }, { withCredentials: true })
+  }
+
+  saveUserToLocalStorage(user: User) {
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem("user", JSON.stringify(user))
+    }
   }
 
   logout() {

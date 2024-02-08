@@ -1,17 +1,41 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
-import { inject } from '@angular/core';
+import { PLATFORM_ID, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, catchError, throwError } from 'rxjs';
+import { catchError, switchMap, throwError } from 'rxjs';
+import { AuthService } from '../services/auth.service';
+import { isPlatformBrowser } from '@angular/common';
 
 export const unauthorizedInterceptor: HttpInterceptorFn = (req, next) => {
-  const router: Router = inject(Router)
+  const router: Router = inject(Router);
+  const auth: AuthService = inject(AuthService);
+  const platformId = inject(PLATFORM_ID)
+
+  if (req.url.includes("/refresh-token")) {
+    return next(req);
+  }
 
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
-      if (error.error.message == "Unauthorized") {
-        router.navigate(['/login'])
+      if (error.status == 401) {
+        return auth.refreshToken()
+          .pipe(
+            switchMap(() => {
+              return next(req)
+            }),
+
+            catchError((error: HttpErrorResponse) => {
+              if (isPlatformBrowser(platformId)) {
+                localStorage?.removeItem("user")
+              }
+              router.navigate(['/login'])
+              return throwError(() => error)
+            })
+          )
       }
 
-      return throwError(() => error)
-    }));
+      else {
+        return throwError(() => error)
+      }
+    })
+  );
 };

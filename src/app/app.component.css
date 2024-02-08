@@ -9,9 +9,3 @@
         padding-top: 23px;
     }
 }
-
-@media screen and (min-width:1280px) {
-    main {
-        margin-left: 128px;
-    }
-}
