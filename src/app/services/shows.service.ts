@@ -3,6 +3,7 @@ import { Shows } from '../models/shows';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { finalize, delay } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 
 
@@ -10,7 +11,7 @@ import { finalize, delay } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ShowsService {
-  private apiUrl = "http://localhost:8000/shows"
+  private apiUrl = environment.SHOWS_API_URL
 
   http: HttpClient = inject(HttpClient)
 
