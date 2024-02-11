@@ -12,6 +12,7 @@ export interface Shows {
             large: string
         }
     }
+    video: string,
     year: number,
     category: string,
     rating: string,

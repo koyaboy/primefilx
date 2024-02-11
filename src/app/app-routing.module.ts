@@ -9,6 +9,7 @@ import { SeriesComponent } from './components/series/series.component';
 import { BookmarksComponent } from './components/bookmarks/bookmarks.component';
 import { LoginComponent } from './components/login/login.component';
 import { authGuard } from './guards/auth.guard';
+import { VideoPlayerComponent } from './components/video-player/video-player.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,7 @@ const routes: Routes = [
       { path: 'movies', component: MoviesComponent },
       { path: 'series', component: SeriesComponent },
       { path: 'bookmarks', component: BookmarksComponent },
+      { path: 'video/:id', component: VideoPlayerComponent },
       { path: "*", redirectTo: "", pathMatch: 'full' }
     ]
   },

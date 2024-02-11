@@ -1,6 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { ShowsService } from '../../services/shows.service';
 import { Shows } from '../../models/shows';
+import { Router } from '@angular/router';
+import { VideoService } from '../../services/video.service';
 
 @Component({
   selector: 'app-home',
@@ -10,14 +12,16 @@ import { Shows } from '../../models/shows';
 
 export class HomeComponent {
   showsService: ShowsService = inject(ShowsService)
+
   shows: Shows[] = []
   recommendedShows: Shows[] = []
   trendingShows: Shows[] = []
   filteredShows: Shows[] = []
+
   filterValue: string = ""
   isLoading!: boolean
 
-  constructor() {
+  constructor(private router: Router, private videoService: VideoService) {
     this.showsService.filterValue.subscribe((filter) => {
       this.filterValue = filter
       this.filteredShows = this.shows.filter((show) => show.title.includes(filter))
@@ -45,5 +49,10 @@ export class HomeComponent {
     show.isBookmarked = !show.isBookmarked
 
     this.showsService.updateBookmark(show._id).subscribe()
+  }
+
+  playVideo(id: string, videoUrl: string) {
+    this.videoService.setVideoUrl(videoUrl)
+    this.router.navigate(['/video', id])
   }
 }
