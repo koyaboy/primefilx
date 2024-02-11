@@ -87,7 +87,8 @@
                             </ng-template>
                         </button>
 
-                        <div class="play-button-container" (click)="playVideo(trendingShow._id,trendingShow.video)">
+                        <div class="play-button-container"
+                            (click)="playVideo(trendingShow._id,trendingShow.video,trendingShow.title,trendingShow.year)">
                             <div class="img-container">
                                 <svg width="30" height="30" xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -104,6 +105,9 @@
 
             <app-shows-list [Shows]="recommendedShows" title="Recommended for you"></app-shows-list>
 
+            <div *ngIf="shouldDisplayVideo">
+                <app-video-player></app-video-player>
+            </div>
         </div>
     </ng-template>
 </section>

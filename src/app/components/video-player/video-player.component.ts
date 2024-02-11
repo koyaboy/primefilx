@@ -9,9 +9,18 @@ import { VideoService } from '../../services/video.service';
 })
 export class VideoPlayerComponent {
   videoUrl!: string
+  videoTitle!: string
+  videoYear!: number
 
   ngOnInit() {
     this.videoUrl = this.videoService.getVideoUrl()
+    this.videoTitle = this.videoService.getVideoTitle()
+    this.videoYear = this.videoService.getVideoYear()
   }
+
   constructor(private videoService: VideoService) { }
+
+  closePlayer() {
+    this.videoService.showVideo.next(false)
+  }
 }

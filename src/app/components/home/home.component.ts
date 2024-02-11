@@ -21,6 +21,8 @@ export class HomeComponent {
   filterValue: string = ""
   isLoading!: boolean
 
+  shouldDisplayVideo!: boolean
+
   constructor(private router: Router, private videoService: VideoService) {
     this.showsService.filterValue.subscribe((filter) => {
       this.filterValue = filter
@@ -29,6 +31,10 @@ export class HomeComponent {
 
     this.showsService.isLoading.subscribe((loadingValue) => {
       this.isLoading = loadingValue
+    })
+
+    this.videoService.showVideo$.subscribe((shouldDisplay) => {
+      this.shouldDisplayVideo = shouldDisplay
     })
   }
 
@@ -51,8 +57,10 @@ export class HomeComponent {
     this.showsService.updateBookmark(show._id).subscribe()
   }
 
-  playVideo(id: string, videoUrl: string) {
+  playVideo(id: string, videoUrl: string, showTitle: string, showYear: number) {
     this.videoService.setVideoUrl(videoUrl)
-    this.router.navigate(['/video', id])
+    this.videoService.setVideoTitle(showTitle)
+    this.videoService.setVideoYear(showYear)
+    this.videoService.showVideo.next(true)
   }
 }
