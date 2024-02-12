@@ -3,7 +3,6 @@ import { ShowsService } from '../../services/shows.service';
 import { Shows } from '../../models/shows';
 import { Router } from '@angular/router';
 import { VideoService } from '../../services/video.service';
-import { runInThisContext } from 'node:vm';
 
 @Component({
   selector: 'app-home',
