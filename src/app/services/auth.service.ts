@@ -3,12 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user';
 import { isPlatformBrowser } from '@angular/common';
 import { environment } from '../../environments/environment';
+import { BehaviorSubject, finalize } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private apiUrl = environment.USERS_API_URL
+
+  isLoggingIn = new BehaviorSubject<boolean>(false)
+  isSigningUp = new BehaviorSubject<boolean>(false)
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private http: HttpClient) { }
 
@@ -17,7 +21,13 @@ export class AuthService {
   }
 
   login(email: string, password: string) {
-    return this.http.post<any>(`${this.apiUrl}/login`, { email, password }, { withCredentials: true })
+    this.isLoggingIn.next(true)
+
+    return this.http.post<any>(`${this.apiUrl}/login`, { email, password }, { withCredentials: true }).pipe(
+      finalize(() => {
+        this.isLoggingIn.next(false)
+      })
+    )
   }
 
   getUser(email: string) {

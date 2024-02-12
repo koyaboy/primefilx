@@ -4,6 +4,7 @@ import { AuthService } from '../../services/auth.service';
 import { switchMap } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-login',
@@ -16,12 +17,21 @@ export class LoginComponent {
     password: ['', Validators.required]
   })
 
+  isLoggingIn!: boolean
+
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
     private toast: ToastrService,
     private route: Router,
-  ) { }
+    private spinner: NgxSpinnerService
+  ) {
+    this.auth.isLoggingIn.subscribe((loginStatus) => {
+      this.isLoggingIn = loginStatus
+    })
+  }
+
+  ngAfterViewInit(): void { this.spinner.show(); }
 
   onSubmit(): void {
     const email = this.loginForm.value.email as string
@@ -41,6 +51,7 @@ export class LoginComponent {
           timeOut: 3000
         })
 
+        this.spinner.hide()
         this.route.navigate(['/'])
       },
       error: error => {

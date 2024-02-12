@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -10,7 +10,7 @@ import { VgCoreModule } from '@videogular/ngx-videogular/core';
 import { VgControlsModule } from '@videogular/ngx-videogular/controls';
 import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
 import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
-
+import { NgxSpinnerModule } from "ngx-spinner";
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -49,6 +49,7 @@ import { unauthorizedInterceptor } from './interceptors/unauthorized.interceptor
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    NgxSpinnerModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
@@ -58,6 +59,7 @@ import { unauthorizedInterceptor } from './interceptors/unauthorized.interceptor
     VgBufferingModule,
     ToastrModule.forRoot()
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     provideClientHydration(),
     provideHttpClient(
