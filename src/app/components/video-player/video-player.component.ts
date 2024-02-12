@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Renderer2 } from '@angular/core';
 import { VideoService } from '../../services/video.service';
 
 
@@ -18,9 +18,12 @@ export class VideoPlayerComponent {
     this.videoYear = this.videoService.getVideoYear()
   }
 
-  constructor(private videoService: VideoService) { }
+  constructor(private videoService: VideoService, private renderer: Renderer2) { }
 
   closePlayer() {
+    const overlay = document.querySelector(".overlay")
+    this.renderer.setStyle(overlay, "display", "none")
+
     this.videoService.showVideo.next(false)
   }
 }

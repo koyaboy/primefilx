@@ -3,6 +3,7 @@ body {
     font-family: 'Outfit', sans-serif;
     font-size: 16px;
     box-sizing: border-box;
+    position: relative;
 }
 
 :root {
@@ -11,6 +12,18 @@ body {
     --greyish-blue: #5A698F;
     --semi-dark-blue: #161D2F;
     --white: #ffffff;
+}
+
+.overlay {
+    position: fixed;
+    display: none;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 998;
+    min-height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .bookmark-button {
@@ -24,7 +37,7 @@ body {
     height: 32px;
     top: 8px;
     right: 8px;
-    z-index: 999;
+    z-index: 900;
     transition: all 0.3s ease;
 }
 

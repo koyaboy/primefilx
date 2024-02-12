@@ -1,5 +1,6 @@
 .home {
     margin-top: 24px;
+    position: relative;
 }
 
 h1 {
@@ -79,7 +80,7 @@ h1 {
     position: absolute;
     bottom: 16px;
     left: 16px;
-    z-index: 999;
+    z-index: 900;
 }
 
 .trending-show-details {

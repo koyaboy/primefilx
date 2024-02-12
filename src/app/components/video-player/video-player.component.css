@@ -1,7 +1,7 @@
 .video-container {
     background-color: var(--dark-blue);
     padding: 2rem;
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     border-radius: 8px;
