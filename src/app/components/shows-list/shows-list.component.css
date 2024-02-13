@@ -10,6 +10,12 @@
     letter-spacing: -0.312px;
 }
 
+.no-bookmark-message {
+    color: var(--greyish-blue);
+    font-size: 1.5rem;
+    margin-top: 1rem;
+}
+
 .shows-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);

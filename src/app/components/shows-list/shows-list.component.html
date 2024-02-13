@@ -3,6 +3,11 @@
 
     <h1 class="shows-heading">{{title}}</h1>
 
+    <p class="no-bookmark-message" *ngIf="title=='Bookmarked Movies' && Shows.length == 0"> OOPS!!! You currently have
+        no bookmarked movies</p>
+    <p class="no-bookmark-message" *ngIf="title=='Bookmarked Series' && Shows.length == 0"> OOPS!!! You currently have
+        no bookmarked series</p>
+
     <div class="shows-container">
         <div class="show-container" *ngFor="let show of Shows">
             <div class="img-container">
