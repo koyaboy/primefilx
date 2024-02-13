@@ -70,6 +70,7 @@ button {
 .login-container {
     display: flex;
     justify-content: center;
+    gap: 6px;
     margin-top: 2em;
     font-size: 15px;
     font-weight: 300;
@@ -81,4 +82,5 @@ button {
 
 .login-container a {
     color: var(--red);
+    text-decoration: none;
 }

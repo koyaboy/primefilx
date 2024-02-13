@@ -35,8 +35,8 @@
                 [class.invalid]="signupForm.get('repeatPassword')?.invalid && (signupForm.get('repeatPassword')?.dirty || signupForm.get('repeatPassword')?.touched)" />
 
             <span class="error-message"
-                *ngIf="signupForm.get('repeatPassword')?.hasError('required') && (signupForm.get('repeatPassword')?.dirty || signupForm.get('repeatPassword')?.touched)">
-                Can't be empty
+                *ngIf="signupForm?.errors?.['passwordmatcherror'] && (signupForm.get('repeatPassword')?.dirty || signupForm.get('repeatPassword')?.touched)">
+                Passwords must match
             </span>
         </div>
 
@@ -49,7 +49,8 @@
 
 
         <div class="login-container">
-            <p>Already have an account?<span><a routerLink="/login"> Login</a></span></p>
+            <p>Already have an account?</p>
+            <a routerLink="/login"> Login</a>
         </div>
     </form>
 
