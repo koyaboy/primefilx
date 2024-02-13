@@ -30,15 +30,15 @@ export class AuthService {
     )
   }
 
-  // signup(email: string, password: string) {
-  //   this.isLoggingIn.next(true)
+  signup(email: string, password: string) {
+    this.isSigningUp.next(true)
 
-  //   return this.http.post<any>(`${this.apiUrl}/login`, { email, password }, { withCredentials: true }).pipe(
-  //     finalize(() => {
-  //       this.isLoggingIn.next(false)
-  //     })
-  //   )
-  // }
+    return this.http.post<any>(`${this.apiUrl}/register`, { email, password }, { withCredentials: true }).pipe(
+      finalize(() => {
+        this.isSigningUp.next(false)
+      })
+    )
+  }
 
   getUser(email: string) {
     return this.http.post<User>(`${this.apiUrl}/getUser`, { email }, { withCredentials: true })

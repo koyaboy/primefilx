@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, Validators } from '@angular/forms';
 import { PasswordValidator } from '../../validators/passwordValidator';
+import { AuthService } from '../../services/auth.service';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+
 
 @Component({
   selector: 'app-signup',
@@ -16,10 +21,44 @@ export class SignupComponent {
     { validators: PasswordValidator } as AbstractControlOptions
   )
 
-  constructor(private fb: FormBuilder) { }
+  isSigningUp!: boolean
+
+  constructor
+    (private fb: FormBuilder,
+      private auth: AuthService,
+      private toast: ToastrService,
+      private route: Router,
+      private spinner: NgxSpinnerService
+    ) {
+    this.auth.isSigningUp.subscribe((signupStatus) => {
+      this.isSigningUp = signupStatus
+    })
+  }
+
+  ngAfterViewInit(): void { this.spinner.show(); }
 
   onSubmit() {
-    console.log(this.signupForm.valid)
-    console.log(this.signupForm.value)
+    const email = this.signupForm.value.email as string
+    const password = this.signupForm.value.password as string
+
+    this.auth.signup(email, password).subscribe({
+      next: () => {
+        this.toast.success(`Registration Complete`, 'Success', {
+          positionClass: "toast-top-right",
+          progressBar: true,
+          timeOut: 3000
+        })
+
+        this.spinner.hide()
+        this.route.navigate(['/login'])
+      },
+      error: error => {
+        this.toast.error(error.error.message, 'Error', {
+          positionClass: "toast-top-right",
+          progressBar: true,
+          timeOut: 3000
+        })
+      }
+    })
   }
 }
