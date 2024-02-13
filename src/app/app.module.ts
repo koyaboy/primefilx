@@ -28,6 +28,7 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { VideoPlayerComponent } from './components/video-player/video-player.component';
 
 import { unauthorizedInterceptor } from './interceptors/unauthorized.interceptor';
+import { SignupComponent } from './components/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { unauthorizedInterceptor } from './interceptors/unauthorized.interceptor
     LoginComponent,
     LayoutComponent,
     VideoPlayerComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,

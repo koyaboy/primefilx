@@ -10,6 +10,7 @@ import { BookmarksComponent } from './components/bookmarks/bookmarks.component';
 import { LoginComponent } from './components/login/login.component';
 import { authGuard } from './guards/auth.guard';
 import { VideoPlayerComponent } from './components/video-player/video-player.component';
+import { SignupComponent } from './components/signup/signup.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,7 @@ const routes: Routes = [
       { path: "*", redirectTo: "", pathMatch: 'full' }
     ]
   },
+  { path: "signup", component: SignupComponent },
   { path: 'login', component: LoginComponent },
   { path: "*", redirectTo: "", pathMatch: 'full' }
 
