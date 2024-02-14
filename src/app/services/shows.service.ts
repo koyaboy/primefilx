@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { Shows } from '../models/shows';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { finalize, delay } from 'rxjs/operators';
+import { finalize, delay, shareReplay } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
 
@@ -24,17 +24,23 @@ export class ShowsService {
   private isLoadingSubject$ = new BehaviorSubject<boolean>(false)
   isLoading = this.isLoadingSubject$.asObservable()
 
+  shows!: Observable<Shows[]>
 
   constructor() { }
 
   getShows(): Observable<Shows[]> {
-    this.isLoadingSubject$.next(true)
+    if (!this.shows) {
+      this.isLoadingSubject$.next(true)
 
-    return this.http.get<Shows[]>(this.apiUrl, { withCredentials: true }).pipe(
-      finalize(() => {
-        this.isLoadingSubject$.next(false)
-      })
-    )
+      this.shows = this.http.get<Shows[]>(this.apiUrl, { withCredentials: true }).pipe(
+        shareReplay(),
+        finalize(() => {
+          this.isLoadingSubject$.next(false)
+        })
+      )
+    }
+
+    return this.shows
   }
 
   updateBookmark(id: string): Observable<Shows> {
