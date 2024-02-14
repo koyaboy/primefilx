@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ShowsService } from '../../services/shows.service';
 import { Shows } from '../../models/shows';
+import { Subject, take, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-bookmarks',
@@ -16,15 +17,25 @@ export class BookmarksComponent {
   filterValue: string = ""
   isLoading!: boolean
 
-  constructor() {
-    this.showsService.filterValue.subscribe((filter) => {
-      this.filterValue = filter
-      this.filteredBookmarks = this.bookmarkedShows.filter((bookmarkedShow) => bookmarkedShow.title.includes(this.filterValue))
-    })
+  private unsubscribe = new Subject<void>();
 
-    this.showsService.isLoading.subscribe((loadingValue) => {
-      this.isLoading = loadingValue
-    })
+  constructor() {
+    this.showsService.filterValue
+      .pipe(
+        takeUntil(this.unsubscribe)
+      )
+      .subscribe((filter) => {
+        this.filterValue = filter
+        this.filteredBookmarks = this.bookmarkedShows.filter((bookmarkedShow) => bookmarkedShow.title.includes(this.filterValue))
+      })
+
+    this.showsService.isLoading
+      .pipe(
+        takeUntil(this.unsubscribe)
+      )
+      .subscribe((loadingValue) => {
+        this.isLoading = loadingValue
+      })
   }
 
   ngOnInit() {
@@ -34,6 +45,11 @@ export class BookmarksComponent {
       this.bookmarkedSeries = this.bookmarkedShows.filter((show) => show.isBookmarked == true && show.category == "TV Series")
     })
     this.showsService.setSearchCategory('bookmarked shows')
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe.next()
+    this.unsubscribe.complete()
   }
 
   onShowsChanged(updatedBookmarkedShows: Shows[]): void {

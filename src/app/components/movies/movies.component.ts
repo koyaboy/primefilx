@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ShowsService } from '../../services/shows.service';
 import { Shows } from '../../models/shows';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-movies',
@@ -15,15 +16,23 @@ export class MoviesComponent {
   filteredMovies: Shows[] = []
   isLoading!: boolean
 
-  constructor() {
-    this.showsService.filterValue.subscribe((filter) => {
-      this.filterValue = filter
-      this.filteredMovies = this.movies.filter((movie) => movie.title.includes(this.filterValue))
-    })
+  private unsubscribe = new Subject<void>();
 
-    this.showsService.isLoading.subscribe((loadingValue) => {
-      this.isLoading = loadingValue
-    })
+  constructor() {
+    this.showsService.filterValue
+      .pipe(
+        takeUntil(this.unsubscribe)
+      )
+      .subscribe((filter) => {
+        this.filterValue = filter
+        this.filteredMovies = this.movies.filter((movie) => movie.title.includes(this.filterValue))
+      })
+
+    this.showsService.isLoading
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe((loadingValue) => {
+        this.isLoading = loadingValue
+      })
   }
 
   ngOnInit() {
@@ -31,5 +40,10 @@ export class MoviesComponent {
       this.movies = shows.filter((show) => show.category == "Movie")
     ])
     this.showsService.setSearchCategory('movies')
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe.next()
+    this.unsubscribe.complete()
   }
 }
