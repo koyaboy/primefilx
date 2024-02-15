@@ -55,7 +55,8 @@ input::placeholder {
 }
 
 input:hover,
-input:active {
+input:active,
+input:focus {
     border-bottom: 1px solid white;
 }
 
