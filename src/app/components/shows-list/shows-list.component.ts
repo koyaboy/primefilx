@@ -2,7 +2,10 @@ import { Component, Input, inject, Output, EventEmitter, Renderer2 } from '@angu
 import { Shows } from '../../models/shows';
 import { ShowsService } from '../../services/shows.service';
 import { VideoService } from '../../services/video.service';
-
+import { Overlay } from "@angular/cdk/overlay"
+import { ViewChild } from '@angular/core';
+import { CdkPortal } from '@angular/cdk/portal';
+import { OverlayConfig } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-shows-list',
@@ -14,18 +17,18 @@ export class ShowsListComponent {
   @Input() Shows!: Shows[]
   @Input() filterType!: string
 
+  @ViewChild(CdkPortal) portal!: CdkPortal;
+
   @Output() updatedShows = new EventEmitter<Shows[]>();
-
-
-  shouldDisplayVideo!: boolean
 
   showsService: ShowsService = inject(ShowsService)
 
-  constructor(private videoService: VideoService, private renderer: Renderer2) {
-    this.videoService.showVideo$.subscribe((shouldDisplay) => {
-      this.shouldDisplayVideo = shouldDisplay
-    })
-  }
+  constructor(
+    private videoService: VideoService,
+    private renderer: Renderer2,
+    private overlay: Overlay,
+  ) { }
+
   ngOnInit() {
     if (this.title == "Bookmarked Movies" || this.title == "Bookmarked Series") {
       this.Shows = this.Shows.filter((show) => show.isBookmarked)
@@ -58,13 +61,24 @@ export class ShowsListComponent {
   }
 
   playVideo(id: string, videoUrl: string, showTitle: string, showYear: number) {
-    const overlay = document.querySelector(".overlay")
-    this.renderer.setStyle(overlay, "display", "block")
-
     this.videoService.setVideoUrl(videoUrl)
     this.videoService.setVideoTitle(showTitle)
     this.videoService.setVideoYear(showYear)
-    this.videoService.showVideo.next(true)
+
+    const config = new OverlayConfig({
+      hasBackdrop: true
+    })
+
+    const overlayRef = this.overlay.create(config);
+    overlayRef.attach(this.portal);
+
+    overlayRef.backdropClick().subscribe(() => overlayRef.detach())
+  }
+
+  handleKeydown(event: KeyboardEvent, id: string, videoUrl: string, showTitle: string, showYear: number) {
+    if (event.key == "Enter") {
+      this.playVideo(id, videoUrl, showTitle, showYear)
+    }
   }
 
 }

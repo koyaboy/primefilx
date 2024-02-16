@@ -1,11 +1,11 @@
-<div class="video-container">
+<div class="video-container" cdkTrapFocus cdkTrapFocusAutoCapture>
     <div class="top">
         <div class="title-container">
             <h1>{{videoTitle}}</h1>
             <p>{{videoYear}}</p>
         </div>
 
-        <button (click)="closePlayer()">
+        <button #closeBtn cdkFocusInitial>
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0,0,256,256"
                 width="26px" height="26px">
                 <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
@@ -23,7 +23,6 @@
     </div>
 
     <vg-player>
-        <!-- <vg-buffering></vg-buffering> -->
         <video [vgMedia]="$any(media)" #media id="singleVideo" preload="auto" controls>
             <source [src]="videoUrl" type="video/mp4">
         </video>

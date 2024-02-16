@@ -10,7 +10,8 @@
 
     <div class="shows-container">
         <div class="show-container" *ngFor="let show of Shows">
-            <div class="img-container">
+            <div class="img-container" tabindex="0"
+                (keydown)="handleKeydown($event,show._id,show.video,show.title,show.year)">
                 <img class="small-screen" [src]="show.thumbnail.regular.small" [alt]="show.title + ' thumbnail'" />
                 <img class="medium-screen" [src]="show.thumbnail.regular.medium" alt="{{ show.title }} 'thumbnail'" />
                 <img class="large-screen" [src]="show.thumbnail.regular.large" alt="{{ show.title }} 'thumbnail'" />
@@ -84,8 +85,8 @@
             </button>
         </div>
 
-        <div *ngIf="shouldDisplayVideo">
+        <ng-template cdkPortal>
             <app-video-player></app-video-player>
-        </div>
+        </ng-template>
     </div>
 </section>
