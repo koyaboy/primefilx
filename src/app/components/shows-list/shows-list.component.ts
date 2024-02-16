@@ -6,6 +6,8 @@ import { Overlay } from "@angular/cdk/overlay"
 import { ViewChild } from '@angular/core';
 import { CdkPortal } from '@angular/cdk/portal';
 import { OverlayConfig } from '@angular/cdk/overlay';
+import { VideoPlayerComponent } from '../video-player/video-player.component';
+import { ComponentPortal } from '@angular/cdk/portal';
 
 @Component({
   selector: 'app-shows-list',
@@ -23,11 +25,25 @@ export class ShowsListComponent {
 
   showsService: ShowsService = inject(ShowsService)
 
+  shouldDisplayVideo!: boolean
+
+  overlayRef = this.overlay.create(new OverlayConfig({
+    hasBackdrop: true
+  }));
+
   constructor(
     private videoService: VideoService,
     private renderer: Renderer2,
     private overlay: Overlay,
-  ) { }
+  ) {
+    this.videoService.showVideo$.subscribe((shouldDisplay) => {
+      this.shouldDisplayVideo = shouldDisplay
+
+      if (!this.shouldDisplayVideo) {
+        this.overlayRef.detach()
+      }
+    })
+  }
 
   ngOnInit() {
     if (this.title == "Bookmarked Movies" || this.title == "Bookmarked Series") {
@@ -60,24 +76,19 @@ export class ShowsListComponent {
     }
   }
 
-  playVideo(id: string, videoUrl: string, showTitle: string, showYear: number) {
+  playVideo(event: Event, id: string, videoUrl: string, showTitle: string, showYear: number) {
+    this.videoService.showVideo.next(true)
     this.videoService.setVideoUrl(videoUrl)
     this.videoService.setVideoTitle(showTitle)
     this.videoService.setVideoYear(showYear)
 
-    const config = new OverlayConfig({
-      hasBackdrop: true
-    })
-
-    const overlayRef = this.overlay.create(config);
-    overlayRef.attach(this.portal);
-
-    overlayRef.backdropClick().subscribe(() => overlayRef.detach())
+    const portal = new ComponentPortal(VideoPlayerComponent);
+    this.overlayRef.attach(portal)
   }
 
   handleKeydown(event: KeyboardEvent, id: string, videoUrl: string, showTitle: string, showYear: number) {
     if (event.key == "Enter") {
-      this.playVideo(id, videoUrl, showTitle, showYear)
+      this.playVideo(event, id, videoUrl, showTitle, showYear)
     }
   }
 

@@ -17,7 +17,7 @@
                 <img class="large-screen" [src]="show.thumbnail.regular.large" alt="{{ show.title }} 'thumbnail'" />
 
 
-                <div class="play-button-container" (click)="playVideo(show._id,show.video,show.title,show.year)">
+                <div class="play-button-container" (click)="playVideo($event,show._id,show.video,show.title,show.year)">
                     <div>
                         <svg width="30" height="30" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -85,8 +85,8 @@
             </button>
         </div>
 
-        <ng-template cdkPortal>
+        <!-- <ng-template cdkPortal>
             <app-video-player></app-video-player>
-        </ng-template>
+        </ng-template> -->
     </div>
 </section>

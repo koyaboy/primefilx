@@ -5,7 +5,7 @@
             <p>{{videoYear}}</p>
         </div>
 
-        <button #closeBtn cdkFocusInitial>
+        <button #closeBtn (click)="closePlayer()">
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0,0,256,256"
                 width="26px" height="26px">
                 <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
@@ -23,7 +23,7 @@
     </div>
 
     <vg-player>
-        <video [vgMedia]="$any(media)" #media id="singleVideo" preload="auto" controls>
+        <video tabindex="0" cdkFocusInitial [vgMedia]="$any(media)" #media id="singleVideo" preload="auto" controls>
             <source [src]="videoUrl" type="video/mp4">
         </video>
     </vg-player>

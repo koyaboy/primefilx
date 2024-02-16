@@ -1,4 +1,4 @@
-import { Component, Renderer2, ElementRef, ViewChild, HostListener, Input } from '@angular/core';
+import { Component, Renderer2, ElementRef, ViewChild, HostListener, Input, Output, EventEmitter } from '@angular/core';
 import { VideoService } from '../../services/video.service';
 import { Overlay } from '@angular/cdk/overlay';
 
@@ -14,6 +14,8 @@ export class VideoPlayerComponent {
 
   @ViewChild('closeBtn') closeBtn!: ElementRef<HTMLButtonElement>
 
+  @Output() closeOverlay = new EventEmitter<void>();
+
   ngOnInit() {
     this.videoUrl = this.videoService.getVideoUrl()
     this.videoTitle = this.videoService.getVideoTitle()
@@ -26,11 +28,9 @@ export class VideoPlayerComponent {
     private elementRef: ElementRef
   ) { }
 
-  // closePlayer() {
-  //   // event.stopPropagation()
-  //   console.log("this ran, but why ?")
-  //   this.videoService.showVideo.next(false)
-  // }
+  closePlayer() {
+    this.videoService.showVideo.next(false)
+  }
 
   // @HostListener('document:keydown.escape', ['$event'])
   // handleEscape(event: KeyboardEvent) {
