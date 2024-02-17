@@ -46,6 +46,10 @@ export class HomeComponent {
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((shouldDisplay) => {
         this.shouldDisplayVideo = shouldDisplay
+
+        if (!this.shouldDisplayVideo) {
+          this.videoService.closeVideo()
+        }
       })
   }
 
@@ -69,13 +73,13 @@ export class HomeComponent {
   }
 
   playVideo(id: string, videoUrl: string, showTitle: string, showYear: number) {
-    const overlay = document.querySelector(".overlay")
-    this.renderer.setStyle(overlay, "display", "block")
+    this.videoService.playVideo(id, videoUrl, showTitle, showYear)
+  }
 
-    this.videoService.setVideoUrl(videoUrl)
-    this.videoService.setVideoTitle(showTitle)
-    this.videoService.setVideoYear(showYear)
-    this.videoService.showVideo.next(true)
+  handleKeydown(event: KeyboardEvent, id: string, videoUrl: string, showTitle: string, showYear: number) {
+    if (event.key == "Enter") {
+      this.playVideo(id, videoUrl, showTitle, showYear)
+    }
   }
 
   ngOnDestroy() {

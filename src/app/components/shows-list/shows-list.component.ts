@@ -27,10 +27,6 @@ export class ShowsListComponent {
 
   shouldDisplayVideo!: boolean
 
-  overlayRef = this.overlay.create(new OverlayConfig({
-    hasBackdrop: true
-  }));
-
   constructor(
     private videoService: VideoService,
     private renderer: Renderer2,
@@ -40,7 +36,7 @@ export class ShowsListComponent {
       this.shouldDisplayVideo = shouldDisplay
 
       if (!this.shouldDisplayVideo) {
-        this.overlayRef.detach()
+        this.videoService.closeVideo()
       }
     })
   }
@@ -76,19 +72,13 @@ export class ShowsListComponent {
     }
   }
 
-  playVideo(event: Event, id: string, videoUrl: string, showTitle: string, showYear: number) {
-    this.videoService.showVideo.next(true)
-    this.videoService.setVideoUrl(videoUrl)
-    this.videoService.setVideoTitle(showTitle)
-    this.videoService.setVideoYear(showYear)
-
-    const portal = new ComponentPortal(VideoPlayerComponent);
-    this.overlayRef.attach(portal)
+  playVideo(id: string, videoUrl: string, showTitle: string, showYear: number) {
+    this.videoService.playVideo(id, videoUrl, showTitle, showYear)
   }
 
   handleKeydown(event: KeyboardEvent, id: string, videoUrl: string, showTitle: string, showYear: number) {
     if (event.key == "Enter") {
-      this.playVideo(event, id, videoUrl, showTitle, showYear)
+      this.playVideo(id, videoUrl, showTitle, showYear)
     }
   }
 

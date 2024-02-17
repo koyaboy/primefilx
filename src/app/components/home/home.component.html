@@ -20,7 +20,8 @@
 
                 <div class="trending-shows-container">
                     <div class="trending-show" *ngFor="let trendingShow of trendingShows">
-                        <div class="trending-show-img-container">
+                        <div class="trending-show-img-container" tabindex="0"
+                            (keydown)="handleKeydown($event,trendingShow._id,trendingShow.video,trendingShow.title,trendingShow.year)">
                             <img class="small-screen-image" [src]="trendingShow.thumbnail.trending.small"
                                 [alt]="trendingShow.title + 'image'">
                             <img class="large-screen-img" [src]="trendingShow.thumbnail.trending.small"
