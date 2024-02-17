@@ -2,7 +2,6 @@ import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { ShowsService } from '../../services/shows.service';
 
-
 @Component({
   selector: 'app-searchbar',
   templateUrl: './searchbar.component.html',
@@ -14,7 +13,6 @@ export class SearchbarComponent {
   showsService: ShowsService = inject(ShowsService)
   searchValue!: string
   category: string = ''
-
 
   constructor() {
     this.showsService.categoryValue.subscribe((categoryValue) => {

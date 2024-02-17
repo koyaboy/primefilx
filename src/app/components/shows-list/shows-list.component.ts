@@ -1,13 +1,10 @@
-import { Component, Input, inject, Output, EventEmitter, Renderer2 } from '@angular/core';
+import { Component, Input, inject, Output, EventEmitter, Renderer2, ElementRef } from '@angular/core';
 import { Shows } from '../../models/shows';
 import { ShowsService } from '../../services/shows.service';
 import { VideoService } from '../../services/video.service';
 import { Overlay } from "@angular/cdk/overlay"
 import { ViewChild } from '@angular/core';
 import { CdkPortal } from '@angular/cdk/portal';
-import { OverlayConfig } from '@angular/cdk/overlay';
-import { VideoPlayerComponent } from '../video-player/video-player.component';
-import { ComponentPortal } from '@angular/cdk/portal';
 
 @Component({
   selector: 'app-shows-list',
@@ -31,6 +28,7 @@ export class ShowsListComponent {
     private videoService: VideoService,
     private renderer: Renderer2,
     private overlay: Overlay,
+    private el: ElementRef
   ) {
     this.videoService.showVideo$.subscribe((shouldDisplay) => {
       this.shouldDisplayVideo = shouldDisplay
@@ -45,8 +43,14 @@ export class ShowsListComponent {
     if (this.title == "Bookmarked Movies" || this.title == "Bookmarked Series") {
       this.Shows = this.Shows.filter((show) => show.isBookmarked)
     }
+
+    console.log("men mount")
   }
 
+  ngAfterViewInit() {
+    const searchInput = document.querySelector("#searchInput") as HTMLInputElement
+    if (searchInput) searchInput.focus()
+  }
   updateBookmarkedShows(): void {
     let newBookmarkedShows: Shows[] = []
     this.showsService.getShows().subscribe((shows) => {
