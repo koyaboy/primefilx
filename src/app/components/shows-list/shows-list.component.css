@@ -50,6 +50,7 @@
 
 .play-button-container {
     display: none;
+    cursor: pointer;
     align-items: center;
     gap: 20px;
     padding-left: 10px;
