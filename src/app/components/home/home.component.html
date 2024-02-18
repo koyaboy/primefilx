@@ -20,11 +20,13 @@
 
                 <div class="trending-shows-container">
                     <div class="trending-show" *ngFor="let trendingShow of trendingShows">
-                        <div class="trending-show-img-container" tabindex="0"
-                            (keydown)="handleKeydown($event,trendingShow._id,trendingShow.video,trendingShow.title,trendingShow.year)">
-                            <img class="small-screen-image" [src]="trendingShow.thumbnail.trending.small"
+                        <div class="trending-show-img-container" tabindex="0" role="button"
+                            (keydown)="handleKeydown($event,trendingShow._id,trendingShow.video,trendingShow.title,trendingShow.year)"
+                            [attr.aria-label]="'Watch ' + trendingShow.title + ' ' + trendingShow.category + ' trailer'"
+                            aria-haspopup="dialog">
+                            <img class=" small-screen-image" [src]="trendingShow.thumbnail.trending.small"
                                 [alt]="trendingShow.title + 'image'">
-                            <img class="large-screen-img" [src]="trendingShow.thumbnail.trending.small"
+                            <img class="large-screen-img" [src]="trendingShow.thumbnail.trending.large"
                                 [alt]="trendingShow.title + 'image'">
                         </div>
 
@@ -72,7 +74,8 @@
                         </div>
 
                         <button class="bookmark-button" (click)="toggleBookmark(trendingShow)">
-                            <div *ngIf="trendingShow.isBookmarked; else elseBlock">
+                            <div *ngIf="trendingShow.isBookmarked; else elseBlock"
+                                [attr.aria-label]="'Remove ' + trendingShow.title + ' ' + trendingShow.category + ' from your bookmarks'">
                                 <svg class="bookmarked-svg" width="12" height="14" xmlns="http://www.w3.org/2000/svg">
                                     <path d="m10.518.75.399 12.214-5.084-4.24-4.535 4.426L.75 1.036l9.768-.285Z"
                                         stroke="#FFF" stroke-width="1.5" fill="white" />
@@ -80,8 +83,9 @@
                             </div>
 
                             <ng-template #elseBlock>
-                                <div>
-                                    <svg class="unbookmarked-svg" width="12" height="14"
+                                <div
+                                    [attr.aria-label]="'add ' + trendingShow.title + ' ' + trendingShow.category + ' to your bookmarks'">
+                                    <svg class=" unbookmarked-svg" width="12" height="14"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path d="m10.518.75.399 12.214-5.084-4.24-4.535 4.426L.75 1.036l9.768-.285Z"
                                             stroke="#FFF" stroke-width="1.5" fill="none" />

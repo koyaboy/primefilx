@@ -1,11 +1,11 @@
-<div class="video-container" cdkTrapFocus cdkTrapFocusAutoCapture>
+<div class="video-container" role="dialog" aria-labelledby="videotitle" cdkTrapFocus cdkTrapFocusAutoCapture>
     <div class="top">
         <div class="title-container">
-            <h1>{{videoTitle}}</h1>
+            <h1 id="videotitle">{{videoTitle}}</h1>
             <p>{{videoYear}}</p>
         </div>
 
-        <button #closeBtn (click)="closePlayer()">
+        <button #closeBtn (click)="closePlayer()" aria-label="Close video player">
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0,0,256,256"
                 width="26px" height="26px">
                 <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"

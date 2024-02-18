@@ -10,8 +10,9 @@
 
     <div class="shows-container">
         <div class="show-container" *ngFor="let show of Shows">
-            <div class="img-container" tabindex="0"
-                (keydown)="handleKeydown($event,show._id,show.video,show.title,show.year)">
+            <div class="img-container" tabindex="0" role="button"
+                (keydown)="handleKeydown($event,show._id,show.video,show.title,show.year)"
+                [attr.aria-label]="'Watch ' + show.title + ' ' + show.category + ' trailer'" aria-haspopup="dialog">
                 <img class="small-screen" [src]="show.thumbnail.regular.small" [alt]="show.title + ' thumbnail'" />
                 <img class="medium-screen" [src]="show.thumbnail.regular.medium" alt="{{ show.title }} 'thumbnail'" />
                 <img class="large-screen" [src]="show.thumbnail.regular.large" alt="{{ show.title }} 'thumbnail'" />
@@ -67,7 +68,8 @@
             <h3 class="show-title">{{show.title}}</h3>
 
             <button class="bookmark-button" (click)="toggleBookmark(show)">
-                <div *ngIf="show.isBookmarked; else elseBlock">
+                <div *ngIf="show.isBookmarked; else elseBlock"
+                    [attr.aria-label]="'Remove' + show.title + ' ' + show.category + ' from your bookmarks' ">
                     <svg class="bookmarked-svg" width="12" height="14" xmlns="http://www.w3.org/2000/svg">
                         <path d="m10.518.75.399 12.214-5.084-4.24-4.535 4.426L.75 1.036l9.768-.285Z" stroke="#FFF"
                             stroke-width="1.5" fill="white" />
@@ -75,7 +77,7 @@
                 </div>
 
                 <ng-template #elseBlock>
-                    <div>
+                    <div [attr.aria-label]="'add' + show.title + ' ' + show.category + ' to your bookmarks' ">
                         <svg class="unbookmarked-svg" width="12" height="14" xmlns="http://www.w3.org/2000/svg">
                             <path d="m10.518.75.399 12.214-5.084-4.24-4.535 4.426L.75 1.036l9.768-.285Z" stroke="#FFF"
                                 stroke-width="1.5" fill="none" />
