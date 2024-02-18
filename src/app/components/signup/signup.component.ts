@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, Validators } from '@angular/forms';
 import { PasswordValidator } from '../../validators/passwordValidator';
 import { AuthService } from '../../services/auth.service';
@@ -23,6 +23,9 @@ export class SignupComponent {
 
   isSigningUp!: boolean
 
+  @ViewChild('emailInput') emailInput!: ElementRef
+
+
   constructor
     (private fb: FormBuilder,
       private auth: AuthService,
@@ -35,7 +38,10 @@ export class SignupComponent {
     })
   }
 
-  ngAfterViewInit(): void { this.spinner.show(); }
+  ngAfterViewInit(): void {
+    this.spinner.show()
+    this.emailInput.nativeElement.focus()
+  }
 
   onSubmit() {
     const email = this.signupForm.value.email as string

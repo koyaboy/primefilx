@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { switchMap } from 'rxjs';
@@ -19,6 +19,8 @@ export class LoginComponent {
 
   isLoggingIn!: boolean
 
+  @ViewChild('emailInput') emailInput!: ElementRef
+
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
@@ -31,7 +33,10 @@ export class LoginComponent {
     })
   }
 
-  ngAfterViewInit(): void { this.spinner.show(); }
+  ngAfterViewInit(): void {
+    this.spinner.show()
+    this.emailInput.nativeElement.focus()
+  }
 
   onSubmit(): void {
     const email = this.loginForm.value.email as string
