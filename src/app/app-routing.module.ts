@@ -22,7 +22,7 @@ const routes: Routes = [
       { path: 'movies', component: MoviesComponent },
       { path: 'series', component: SeriesComponent },
       { path: 'bookmarks', component: BookmarksComponent },
-      { path: 'video/:id', component: VideoPlayerComponent },
+      { path: 'video/:id', loadChildren: () => import('./components/video-player/video-player.module').then(m => m.VideoPlayerModule) },
       { path: "*", redirectTo: "", pathMatch: 'full' }
     ]
   },

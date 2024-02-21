@@ -8,10 +8,7 @@ import { PortalModule } from '@angular/cdk/portal';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { VgCoreModule } from '@videogular/ngx-videogular/core';
-import { VgControlsModule } from '@videogular/ngx-videogular/controls';
-import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
-import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
+
 import { NgxSpinnerModule } from "ngx-spinner";
 
 import { AppComponent } from './app.component';
@@ -27,10 +24,10 @@ import { SkeletonComponent } from './components/skeleton/skeleton.component';
 import { TrendingSkeletonComponent } from './components/trending-skeleton/trending-skeleton.component';
 import { LoginComponent } from './components/login/login.component';
 import { LayoutComponent } from './components/layout/layout.component';
-import { VideoPlayerComponent } from './components/video-player/video-player.component';
 
 import { unauthorizedInterceptor } from './interceptors/unauthorized.interceptor';
 import { SignupComponent } from './components/signup/signup.component';
+import { VideoPlayerModule } from './components/video-player/video-player.module';
 
 @NgModule({
   declarations: [
@@ -47,7 +44,6 @@ import { SignupComponent } from './components/signup/signup.component';
     TrendingSkeletonComponent,
     LoginComponent,
     LayoutComponent,
-    VideoPlayerComponent,
     SignupComponent,
   ],
   imports: [
@@ -59,11 +55,9 @@ import { SignupComponent } from './components/signup/signup.component';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    VgCoreModule,
-    VgControlsModule,
-    VgOverlayPlayModule,
-    VgBufferingModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+
+    VideoPlayerModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [

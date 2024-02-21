@@ -1,10 +1,7 @@
-import { Component, Input, inject, Output, EventEmitter, Renderer2, ElementRef } from '@angular/core';
+import { Component, Input, inject, Output, EventEmitter } from '@angular/core';
 import { Shows } from '../../models/shows';
 import { ShowsService } from '../../services/shows.service';
 import { VideoService } from '../../services/video.service';
-import { Overlay } from "@angular/cdk/overlay"
-import { ViewChild } from '@angular/core';
-import { CdkPortal } from '@angular/cdk/portal';
 
 @Component({
   selector: 'app-shows-list',
@@ -16,8 +13,6 @@ export class ShowsListComponent {
   @Input() Shows!: Shows[]
   @Input() filterType!: string
 
-  @ViewChild(CdkPortal) portal!: CdkPortal;
-
   @Output() updatedShows = new EventEmitter<Shows[]>();
 
   showsService: ShowsService = inject(ShowsService)
@@ -26,9 +21,6 @@ export class ShowsListComponent {
 
   constructor(
     private videoService: VideoService,
-    private renderer: Renderer2,
-    private overlay: Overlay,
-    private el: ElementRef
   ) {
     this.videoService.showVideo$.subscribe((shouldDisplay) => {
       this.shouldDisplayVideo = shouldDisplay

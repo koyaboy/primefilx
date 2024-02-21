@@ -1,9 +1,6 @@
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { isPlatformBrowser } from '@angular/common';
-import { Subscription } from 'rxjs';
-
 
 @Component({
   selector: 'app-header',
