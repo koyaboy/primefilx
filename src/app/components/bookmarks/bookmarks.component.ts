@@ -21,7 +21,7 @@ export class BookmarksComponent {
   private unsubscribe = new Subject<void>();
 
   constructor() {
-    this.showsService.filterValue
+    this.showsService.filterValue$
       .pipe(
         takeUntil(this.unsubscribe)
       )
@@ -30,7 +30,7 @@ export class BookmarksComponent {
         this.filteredBookmarks = this.bookmarkedShows.filter((bookmarkedShow) => bookmarkedShow.title.includes(this.filterValue))
       })
 
-    this.showsService.isLoading
+    this.showsService.isLoading$
       .pipe(
         takeUntil(this.unsubscribe)
       )

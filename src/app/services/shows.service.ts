@@ -16,13 +16,13 @@ export class ShowsService {
   http: HttpClient = inject(HttpClient)
 
   private filterSubject$ = new BehaviorSubject<string>('')
-  filterValue = this.filterSubject$.asObservable()
+  filterValue$ = this.filterSubject$.asObservable()
 
   private categorySubject$ = new BehaviorSubject<string>('')
-  categoryValue = this.categorySubject$.asObservable()
+  categoryValue$ = this.categorySubject$.asObservable()
 
-  private isLoadingSubject$ = new BehaviorSubject<boolean>(false)
-  isLoading = this.isLoadingSubject$.asObservable()
+  private isLoadingSubject = new BehaviorSubject<boolean>(false)
+  isLoading$ = this.isLoadingSubject.asObservable()
 
   shows!: Observable<Shows[]>
 
@@ -30,12 +30,12 @@ export class ShowsService {
 
   getShows(): Observable<Shows[]> {
     if (!this.shows) {
-      this.isLoadingSubject$.next(true)
+      this.isLoadingSubject.next(true)
 
       this.shows = this.http.get<Shows[]>(this.apiUrl, { withCredentials: true }).pipe(
         shareReplay(),
         finalize(() => {
-          this.isLoadingSubject$.next(false)
+          this.isLoadingSubject.next(false)
         })
       )
     }

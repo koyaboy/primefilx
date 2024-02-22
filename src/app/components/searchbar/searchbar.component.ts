@@ -15,7 +15,7 @@ export class SearchbarComponent {
   category: string = ''
 
   constructor() {
-    this.showsService.categoryValue.subscribe((categoryValue) => {
+    this.showsService.categoryValue$.subscribe((categoryValue) => {
       this.category = categoryValue
     })
 

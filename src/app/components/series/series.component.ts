@@ -18,14 +18,14 @@ export class SeriesComponent {
   private unsubscribe = new Subject<void>();
 
   constructor() {
-    this.showsService.filterValue
+    this.showsService.filterValue$
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((filter) => {
         this.filterValue = filter
         this.filteredSeries = this.series.filter((show) => show.title.includes(this.filterValue))
       })
 
-    this.showsService.isLoading
+    this.showsService.isLoading$
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((loadingValue) => {
         this.isLoading = loadingValue

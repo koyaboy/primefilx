@@ -19,7 +19,7 @@ export class MoviesComponent {
   private unsubscribe = new Subject<void>();
 
   constructor() {
-    this.showsService.filterValue
+    this.showsService.filterValue$
       .pipe(
         takeUntil(this.unsubscribe)
       )
@@ -28,7 +28,7 @@ export class MoviesComponent {
         this.filteredMovies = this.movies.filter((movie) => movie.title.includes(this.filterValue))
       })
 
-    this.showsService.isLoading
+    this.showsService.isLoading$
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((loadingValue) => {
         this.isLoading = loadingValue
