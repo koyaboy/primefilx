@@ -35,8 +35,6 @@ export class ShowsListComponent {
     if (this.title == "Bookmarked Movies" || this.title == "Bookmarked Series") {
       this.Shows = this.Shows.filter((show) => show.isBookmarked)
     }
-
-    console.log("men mount")
   }
 
   ngAfterViewInit() {

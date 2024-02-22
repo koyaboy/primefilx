@@ -1,20 +1,20 @@
 <section class="home">
     <div class="overlay"></div>
 
-    <ng-container *ngIf="isLoading; else displayShows">
+    <ng-container *ngIf="isLoading(); else displayShows">
         <app-trending-skeleton title="Trending"></app-trending-skeleton>
         <app-skeleton title="Recommended for you"></app-skeleton>
     </ng-container>
 
 
     <ng-template #displayShows>
-        <div *ngIf="!isLoading && filterValue.length !== 0">
-            <app-shows-list title="Found {{(filteredShows$|async)?.length}} results for '{{filterValue}}'"
+        <div *ngIf="!isLoading() && filterValue().length !== 0">
+            <app-shows-list title="Found {{(filteredShows$|async)?.length}} results for '{{filterValue()}}'"
                 [Shows]="(filteredShows$ | async) || []">
             </app-shows-list>
         </div>
 
-        <div *ngIf="!isLoading && filterValue.length == 0">
+        <div *ngIf="!isLoading() && filterValue().length == 0">
             <section class="trending-section">
                 <h1>Trending</h1>
 

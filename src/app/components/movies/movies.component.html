@@ -1,14 +1,15 @@
-<ng-container *ngIf="isLoading; else showMovies">
+<ng-container *ngIf="isLoading(); else showMovies">
     <app-skeleton title="Movies"></app-skeleton>
 </ng-container>
 
 <ng-template #showMovies>
-    <div *ngIf="!isLoading && filterValue.length !== 0">
-        <app-shows-list title="Found {{filteredMovies.length}} results for '{{filterValue}}'" [Shows]="filteredMovies">
+    <div *ngIf="!isLoading() && filterValue().length !== 0">
+        <app-shows-list title="Found {{filteredMovies.length}} results for '{{filterValue()}}'"
+            [Shows]="filteredMovies">
         </app-shows-list>
     </div>
 
-    <div *ngIf="!isLoading && filterValue.length==0">
+    <div *ngIf="!isLoading() && filterValue().length==0">
         <app-shows-list title="Movies" [Shows]="movies"></app-shows-list>
     </div>
 </ng-template>

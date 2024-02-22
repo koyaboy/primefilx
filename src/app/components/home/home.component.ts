@@ -1,10 +1,11 @@
-import { Component, Renderer2, inject } from '@angular/core';
+import { Component, Renderer2, WritableSignal, inject, effect } from '@angular/core';
 import { ShowsService } from '../../services/shows.service';
 import { Shows } from '../../models/shows';
 import { Router } from '@angular/router';
 import { VideoService } from '../../services/video.service';
 import { Subscription, map } from 'rxjs';
 import { Observable } from 'rxjs';
+import { toObservable } from '@angular/core/rxjs-interop'
 
 @Component({
   selector: 'app-home',
@@ -20,23 +21,16 @@ export class HomeComponent {
   shows$: Observable<Shows[]> = this.showsService.getShows()
   trendingShows$: Observable<Shows[]> = this.shows$.pipe(map((shows) => shows.filter(show => show.isTrending)))
   recommendedShows$: Observable<Shows[]> = this.shows$.pipe(map((shows) => shows.filter(show => !show.isTrending)))
-  filteredShows$!: Observable<Shows[]>
+  filteredShows$!: Observable<Shows[]>;
+  // filteredShows:Shows[] = 
 
-  filterValue: string = ""
-  isLoading!: boolean
+  filterValue = this.showsService.filterValue
+  filterValue$ = toObservable(this.filterValue)
+  isLoading = this.showsService.isLoading
   shouldDisplayVideo!: boolean
 
   constructor(private router: Router, private videoService: VideoService, private renderer: Renderer2) {
     this.subscriptions.push(
-      this.showsService.filterValue$
-        .subscribe((filter) => {
-          this.filterValue = filter;
-          this.filteredShows$ = this.shows$.pipe(map((shows) => shows.filter(show => show.title.includes(filter))));
-        }),
-      this.showsService.isLoading$
-        .subscribe((loadingValue) => {
-          this.isLoading = loadingValue;
-        }),
       this.videoService.showVideo$
         .subscribe((shouldDisplay) => {
           this.shouldDisplayVideo = shouldDisplay;
@@ -46,10 +40,18 @@ export class HomeComponent {
           }
         })
     );
+
+    // effect(() => {
+    //   this.filteredShows$ = this.shows$.pipe(map((shows => shows.filter(show => show.title.includes(this.filterValue())))))
+    // })
   }
 
   ngOnInit() {
     this.shows$.subscribe()
+
+    this.filterValue$.subscribe(newValue => {
+      this.filteredShows$ = this.shows$.pipe(map((shows) => shows.filter(show => show.title.includes(newValue))))
+    })
     this.showsService.setSearchCategory('movies or TV series')
   }
 
