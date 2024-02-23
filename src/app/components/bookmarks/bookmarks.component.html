@@ -11,9 +11,9 @@
     </div>
 
     <div *ngIf="!isLoading() && filterValue().length==0">
-        <app-shows-list title="Bookmarked Movies" [Shows]="bookmarkedMovies"
+        <app-shows-list title="Bookmarked Movies" [Shows]="bookmarkedMovies()"
             (updatedShows)="onShowsChanged($event)"></app-shows-list>
-        <app-shows-list title="Bookmarked Series" [Shows]="bookmarkedSeries"
+        <app-shows-list title="Bookmarked Series" [Shows]="bookmarkedSeries()"
             (updatedShows)="onShowsChanged($event)"></app-shows-list>
     </div>
 </ng-template>

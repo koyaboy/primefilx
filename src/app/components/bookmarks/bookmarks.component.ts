@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject, Signal, signal } from '@angular/core';
 import { ShowsService } from '../../services/shows.service';
 import { Shows } from '../../models/shows';
 import { Subject } from 'rxjs';
@@ -12,41 +12,31 @@ import { toObservable } from '@angular/core/rxjs-interop';
 })
 export class BookmarksComponent {
   showsService: ShowsService = inject(ShowsService)
-  bookmarkedShows: Shows[] = []
-  bookmarkedMovies: Shows[] = []
-  bookmarkedSeries: Shows[] = []
-  filteredBookmarks: Shows[] = this.bookmarkedShows.filter((bookmarkedShow) => bookmarkedShow.title.includes(this.filterValue()))
-  // filterValue: string = ""
-  // isLoading!: boolean
+
+  bookmarkedShows = signal<Shows[]>([])
+  bookmarkedMovies: Signal<Shows[]> = computed(() => this.bookmarkedShows().filter(show => show.category == "Movie"))
+  bookmarkedSeries: Signal<Shows[]> = computed(() => this.bookmarkedShows().filter(show => show.category == "TV Series"))
+  filteredBookmarks!: Shows[]
 
   filterValue = this.showsService.filterValue
   filterValue$ = toObservable(this.filterValue)
   isLoading = this.showsService.isLoading
 
-  private unsubscribe = new Subject<void>();
-
   constructor() { }
 
   ngOnInit() {
-    // this.showsService.getShows().subscribe((shows) => {
-    //   this.bookmarkedShows = shows.filter((show) => show.isBookmarked == true)
-    //   this.bookmarkedMovies = this.bookmarkedShows.filter((show) => show.isBookmarked == true && show.category == "Movie")
-    //   this.bookmarkedSeries = this.bookmarkedShows.filter((show) => show.isBookmarked == true && show.category == "TV Series")
-    // })
+    this.showsService.shows$.subscribe((shows) => {
+      this.bookmarkedShows.set(shows.filter(show => show.isBookmarked))
+    })
 
-    this.filterValue$.subscribe(newValue => {
-      this.filteredBookmarks = this.bookmarkedShows.filter((bookmarkedShow) => bookmarkedShow.title.includes(newValue))
+    this.filterValue$.subscribe(newFilter => {
+      this.filteredBookmarks = this.bookmarkedShows().filter((bookmarkedShow) => bookmarkedShow.title.includes(newFilter))
     })
 
     this.showsService.setSearchCategory('bookmarked shows')
   }
 
-  ngOnDestroy() {
-    this.unsubscribe.next()
-    this.unsubscribe.complete()
-  }
-
   onShowsChanged(updatedBookmarkedShows: Shows[]): void {
-    this.bookmarkedShows = updatedBookmarkedShows;
+    this.bookmarkedShows.set(updatedBookmarkedShows)
   }
 }

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, WritableSignal, inject } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { ShowsService } from '../../services/shows.service';
 
@@ -11,14 +11,11 @@ export class SearchbarComponent {
   router: Router = inject(Router)
   route: ActivatedRoute = inject(ActivatedRoute)
   showsService: ShowsService = inject(ShowsService)
+
   searchValue!: string
-  category: string = ''
+  category: WritableSignal<string> = this.showsService.category
 
   constructor() {
-    this.showsService.categoryValue$.subscribe((categoryValue) => {
-      this.category = categoryValue
-    })
-
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.searchValue = ""

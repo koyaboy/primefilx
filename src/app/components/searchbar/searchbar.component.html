@@ -9,7 +9,7 @@
         </div>
 
         <input id="searchInput" [ngModel]="searchValue" (ngModelChange)="updateSearchValue($event)" type="text"
-            [placeholder]="'Search for ' +  category" id="searchInput" name="searchInput" />
+            [placeholder]="'Search for ' +  category()" id="searchInput" name="searchInput" />
 
         <div class="underline"></div>
     </label>

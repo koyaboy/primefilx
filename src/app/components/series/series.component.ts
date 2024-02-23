@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Signal, computed } from '@angular/core';
 import { ShowsService } from '../../services/shows.service';
 import { Shows } from '../../models/shows';
 import { Subject, takeUntil } from 'rxjs';
@@ -11,10 +11,9 @@ import { toObservable } from '@angular/core/rxjs-interop';
 })
 export class SeriesComponent {
   showsService: ShowsService = inject(ShowsService)
-  series: Shows[] = []
-  filteredSeries: Shows[] = this.series.filter((show) => show.title.includes(this.filterValue()))
-  // filterValue: string = ""
-  // isLoading!: boolean
+  shows: Signal<Shows[]> = this.showsService.shows
+  series: Signal<Shows[]> = computed(() => this.shows().filter(show => show.category == "TV Series"))
+  filteredSeries!: Shows[]
 
   filterValue = this.showsService.filterValue
   filterValue$ = toObservable(this.filterValue)
@@ -26,12 +25,8 @@ export class SeriesComponent {
   constructor() { }
 
   ngOnInit() {
-    // this.showsService.getShows().subscribe((shows) => [
-    //   this.series = shows.filter((show) => show.category == "TV Series")
-    // ])
-
     this.filterValue$.subscribe(newValue => {
-      this.filteredSeries = this.series.filter((show) => show.title.includes(newValue))
+      this.filteredSeries = this.series().filter((show) => show.title.includes(newValue))
     })
 
     this.showsService.setSearchCategory('TV series')

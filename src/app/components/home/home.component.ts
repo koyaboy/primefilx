@@ -1,10 +1,8 @@
-import { Component, Renderer2, Signal, inject, effect, computed } from '@angular/core';
+import { Component, Renderer2, Signal, inject, computed } from '@angular/core';
 import { ShowsService } from '../../services/shows.service';
 import { Shows } from '../../models/shows';
 import { Router } from '@angular/router';
 import { VideoService } from '../../services/video.service';
-import { Subscription, map } from 'rxjs';
-import { Observable } from 'rxjs';
 import { toObservable } from '@angular/core/rxjs-interop'
 
 @Component({
@@ -16,7 +14,7 @@ import { toObservable } from '@angular/core/rxjs-interop'
 export class HomeComponent {
   showsService: ShowsService = inject(ShowsService)
 
-  shows: Signal<Shows[]> = this.showsService.getShows()
+  shows: Signal<Shows[]> = this.showsService.shows
   trendingShows: Signal<Shows[]> = computed(() => this.shows().filter(show => show.isTrending))
   recommendedShows: Signal<Shows[]> = computed(() => this.shows().filter(show => !show.isTrending))
   filteredShows!: Shows[]
@@ -25,7 +23,7 @@ export class HomeComponent {
   filterValue$ = toObservable(this.filterValue)
   isLoading = this.showsService.isLoading
 
-  constructor(private router: Router, private videoService: VideoService, private renderer: Renderer2) { }
+  constructor(private videoService: VideoService) { }
 
   ngOnInit() {
     this.filterValue$.subscribe((newValue) => {
@@ -38,7 +36,7 @@ export class HomeComponent {
   toggleBookmark(show: Shows) {
     show.isBookmarked = !show.isBookmarked
 
-    this.showsService.updateBookmark(show._id).subscribe()
+    this.showsService.updateBookmark(show._id)
   }
 
   playVideo(id: string, videoUrl: string, showTitle: string, showYear: number) {

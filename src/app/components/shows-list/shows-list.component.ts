@@ -17,9 +17,7 @@ export class ShowsListComponent {
 
   @Output() updatedShows = new EventEmitter<Shows[]>();
 
-  showsService: ShowsService = inject(ShowsService)
-
-  constructor(private videoService: VideoService) { }
+  constructor(private showsService: ShowsService, private videoService: VideoService) { }
 
   ngOnInit() {
     if (this.title == "Bookmarked Movies" || this.title == "Bookmarked Series") {
@@ -31,12 +29,16 @@ export class ShowsListComponent {
     const searchInput = document.querySelector("#searchInput") as HTMLInputElement
     if (searchInput) searchInput.focus()
   }
+
   updateBookmarkedShows(): void {
     let newBookmarkedShows: Shows[] = []
-    // this.showsService.getShows().subscribe((shows) => {
-    //   newBookmarkedShows = shows.filter((show) => show.isBookmarked)
-    //   this.updatedShows.emit(newBookmarkedShows)
-    // })
+    this.showsService.shows$.subscribe((shows) => {
+      newBookmarkedShows = shows.filter((show) => show.isBookmarked)
+      this.updatedShows.emit(newBookmarkedShows)
+    })
+
+    newBookmarkedShows = this.showsService.shows().filter((show) => show.isBookmarked)
+    this.updatedShows.emit(newBookmarkedShows)
   }
 
   toggleBookmark(show: Shows) {
