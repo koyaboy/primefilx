@@ -1,9 +1,10 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { Injectable, inject, signal, Signal } from '@angular/core';
 import { Shows } from '../models/shows';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { finalize, delay, shareReplay, map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+import { toSignal } from "@angular/core/rxjs-interop"
 
 
 
@@ -24,25 +25,30 @@ export class ShowsService {
   // isLoading$ = this.isLoadingSubject.asObservable()
   isLoading = signal<boolean>(false)
 
-  shows!: Observable<Shows[]>
+  shows$!: Observable<Shows[]>
+  shows!: Signal<Shows[]>
+  trendingShows!: Signal<Shows[]>
 
   constructor() { }
 
-  getShows(): Observable<Shows[]> {
-    if (!this.shows) {
+  getShows(): Signal<Shows[]> {
+    if (!this.shows$) {
       // this.isLoadingSubject.next(true)
       this.isLoading.set(true)
 
-      this.shows = this.http.get<Shows[]>(this.apiUrl, { withCredentials: true }).pipe(
+      this.shows$ = this.http.get<Shows[]>(this.apiUrl, { withCredentials: true }).pipe(
         shareReplay(),
         finalize(() => {
           // this.isLoadingSubject.next(false)
           this.isLoading.set(false)
         })
       )
+
     }
 
+    this.shows = toSignal(this.shows$) as Signal<Shows[]>
     return this.shows
+    //  return this.shows$
   }
 
   updateBookmark(id: string): Observable<Shows> {

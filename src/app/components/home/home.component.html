@@ -9,8 +9,8 @@
 
     <ng-template #displayShows>
         <div *ngIf="!isLoading() && filterValue().length !== 0">
-            <app-shows-list title="Found {{(filteredShows$|async)?.length}} results for '{{filterValue()}}'"
-                [Shows]="(filteredShows$ | async) || []">
+            <app-shows-list title="Found {{filteredShows.length}} results for '{{filterValue()}}'"
+                [Shows]="filteredShows">
             </app-shows-list>
         </div>
 
@@ -19,7 +19,7 @@
                 <h1>Trending</h1>
 
                 <div class="trending-shows-container">
-                    <div class="trending-show" *ngFor="let trendingShow of trendingShows$ | async">
+                    <div class="trending-show" *ngFor="let trendingShow of trendingShows()">
                         <div class="trending-show-img-container" tabindex="0" role="button"
                             (keydown)="handleKeydown($event,trendingShow._id,trendingShow.video,trendingShow.title,trendingShow.year)"
                             [attr.aria-label]="'Watch ' + trendingShow.title + ' ' + trendingShow.category + ' trailer'"
@@ -110,11 +110,7 @@
                 </div>
             </section>
 
-            <app-shows-list [Shows]="(recommendedShows$ | async )|| []" title="Recommended for you"></app-shows-list>
-
-            <div *ngIf="shouldDisplayVideo">
-                <app-video-player></app-video-player>
-            </div>
+            <app-shows-list [Shows]="recommendedShows()" title="Recommended for you"></app-shows-list>
         </div>
     </ng-template>
 </section>

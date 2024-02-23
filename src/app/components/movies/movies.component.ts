@@ -26,9 +26,9 @@ export class MoviesComponent {
   constructor() { }
 
   ngOnInit() {
-    this.showsService.getShows().subscribe((shows) => [
-      this.movies = shows.filter((show) => show.category == "Movie")
-    ])
+    // this.showsService.getShows().subscribe((shows) => [
+    //   this.movies = shows.filter((show) => show.category == "Movie")
+    // ])
 
     this.filterValue$.subscribe(newValue => {
       this.filteredMovies = this.movies.filter((movie) => movie.title.includes(newValue))

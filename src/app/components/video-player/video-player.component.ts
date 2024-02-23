@@ -17,9 +17,9 @@ export class VideoPlayerComponent {
   @Output() closeOverlay = new EventEmitter<void>();
 
   ngOnInit() {
-    this.videoUrl = this.videoService.getVideoUrl()
-    this.videoTitle = this.videoService.getVideoTitle()
-    this.videoYear = this.videoService.getVideoYear()
+    this.videoUrl = this.videoService.videoUrl
+    this.videoTitle = this.videoService.videoTitle
+    this.videoYear = this.videoService.videoYear
   }
 
   constructor(
@@ -29,11 +29,6 @@ export class VideoPlayerComponent {
   ) { }
 
   closePlayer() {
-    this.videoService.showVideo.next(false)
+    this.videoService.closeVideo()
   }
-
-  // @HostListener('document:keydown.escape', ['$event'])
-  // handleEscape(event: KeyboardEvent) {
-  //   this.closePlayer();
-  // }
 }

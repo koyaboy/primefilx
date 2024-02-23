@@ -1,7 +1,9 @@
-import { Component, Input, inject, Output, EventEmitter } from '@angular/core';
+import { Component, Input, inject, Output, EventEmitter, Signal } from '@angular/core';
 import { Shows } from '../../models/shows';
 import { ShowsService } from '../../services/shows.service';
 import { VideoService } from '../../services/video.service';
+import { toObservable } from '@angular/core/rxjs-interop';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-shows-list',
@@ -17,19 +19,7 @@ export class ShowsListComponent {
 
   showsService: ShowsService = inject(ShowsService)
 
-  shouldDisplayVideo!: boolean
-
-  constructor(
-    private videoService: VideoService,
-  ) {
-    this.videoService.showVideo$.subscribe((shouldDisplay) => {
-      this.shouldDisplayVideo = shouldDisplay
-
-      if (!this.shouldDisplayVideo) {
-        this.videoService.closeVideo()
-      }
-    })
-  }
+  constructor(private videoService: VideoService) { }
 
   ngOnInit() {
     if (this.title == "Bookmarked Movies" || this.title == "Bookmarked Series") {
@@ -43,10 +33,10 @@ export class ShowsListComponent {
   }
   updateBookmarkedShows(): void {
     let newBookmarkedShows: Shows[] = []
-    this.showsService.getShows().subscribe((shows) => {
-      newBookmarkedShows = shows.filter((show) => show.isBookmarked)
-      this.updatedShows.emit(newBookmarkedShows)
-    })
+    // this.showsService.getShows().subscribe((shows) => {
+    //   newBookmarkedShows = shows.filter((show) => show.isBookmarked)
+    //   this.updatedShows.emit(newBookmarkedShows)
+    // })
   }
 
   toggleBookmark(show: Shows) {

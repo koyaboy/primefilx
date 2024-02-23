@@ -1,5 +1,4 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable, signal } from '@angular/core';
 import { VideoPlayerComponent } from '../components/video-player/video-player.component';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Overlay } from "@angular/cdk/overlay"
@@ -13,9 +12,6 @@ export class VideoService {
   videoTitle: string = ""
   videoYear!: number
 
-  showVideo = new BehaviorSubject<boolean>(false)
-  showVideo$ = this.showVideo.asObservable()
-
   overlayRef = this.overlay.create(new OverlayConfig({
     hasBackdrop: true
   }));
@@ -23,10 +19,9 @@ export class VideoService {
   constructor(private overlay: Overlay) { }
 
   playVideo(id: string, videoUrl: string, showTitle: string, showYear: number) {
-    this.showVideo.next(true)
-    this.setVideoUrl(videoUrl)
-    this.setVideoTitle(showTitle)
-    this.setVideoYear(showYear)
+    this.videoUrl = videoUrl
+    this.videoTitle = showTitle
+    this.videoYear = showYear
 
     const portal = new ComponentPortal(VideoPlayerComponent);
     this.overlayRef.attach(portal)
@@ -34,29 +29,5 @@ export class VideoService {
 
   closeVideo(): void {
     this.overlayRef.detach()
-  }
-
-  setVideoUrl(url: string) {
-    this.videoUrl = url
-  }
-
-  setVideoTitle(title: string) {
-    this.videoTitle = title
-  }
-
-  setVideoYear(year: number) {
-    this.videoYear = year
-  }
-
-  getVideoUrl(): string {
-    return this.videoUrl
-  }
-
-  getVideoTitle(): string {
-    return this.videoTitle
-  }
-
-  getVideoYear(): number {
-    return this.videoYear
   }
 }

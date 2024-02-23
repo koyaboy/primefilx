@@ -28,11 +28,11 @@ export class BookmarksComponent {
   constructor() { }
 
   ngOnInit() {
-    this.showsService.getShows().subscribe((shows) => {
-      this.bookmarkedShows = shows.filter((show) => show.isBookmarked == true)
-      this.bookmarkedMovies = this.bookmarkedShows.filter((show) => show.isBookmarked == true && show.category == "Movie")
-      this.bookmarkedSeries = this.bookmarkedShows.filter((show) => show.isBookmarked == true && show.category == "TV Series")
-    })
+    // this.showsService.getShows().subscribe((shows) => {
+    //   this.bookmarkedShows = shows.filter((show) => show.isBookmarked == true)
+    //   this.bookmarkedMovies = this.bookmarkedShows.filter((show) => show.isBookmarked == true && show.category == "Movie")
+    //   this.bookmarkedSeries = this.bookmarkedShows.filter((show) => show.isBookmarked == true && show.category == "TV Series")
+    // })
 
     this.filterValue$.subscribe(newValue => {
       this.filteredBookmarks = this.bookmarkedShows.filter((bookmarkedShow) => bookmarkedShow.title.includes(newValue))
