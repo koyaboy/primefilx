@@ -1,11 +1,12 @@
-import { Component, WritableSignal, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, WritableSignal, inject } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { ShowsService } from '../../services/shows.service';
 
 @Component({
   selector: 'app-searchbar',
   templateUrl: './searchbar.component.html',
-  styleUrl: './searchbar.component.css'
+  styleUrl: './searchbar.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SearchbarComponent {
   router: Router = inject(Router)

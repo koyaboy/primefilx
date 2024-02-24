@@ -1,4 +1,4 @@
-import { Component, computed, inject, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, Signal } from '@angular/core';
 import { ShowsService } from '../../services/shows.service';
 import { Shows } from '../../models/shows';
 import { Subject, takeUntil } from 'rxjs';
@@ -7,7 +7,8 @@ import { toObservable } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-movies',
   templateUrl: './movies.component.html',
-  styleUrl: './movies.component.css'
+  styleUrl: './movies.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MoviesComponent {
 

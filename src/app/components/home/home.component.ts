@@ -1,4 +1,4 @@
-import { Component, Renderer2, Signal, inject, computed } from '@angular/core';
+import { Component, Renderer2, Signal, inject, computed, ChangeDetectionStrategy } from '@angular/core';
 import { ShowsService } from '../../services/shows.service';
 import { Shows } from '../../models/shows';
 import { Router } from '@angular/router';
@@ -8,7 +8,8 @@ import { toObservable } from '@angular/core/rxjs-interop'
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrl: './home.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class HomeComponent {

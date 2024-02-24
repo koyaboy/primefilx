@@ -1,4 +1,4 @@
-import { Component, Input, inject, Output, EventEmitter, Signal } from '@angular/core';
+import { Component, Input, inject, Output, EventEmitter, Signal, ChangeDetectionStrategy } from '@angular/core';
 import { Shows } from '../../models/shows';
 import { ShowsService } from '../../services/shows.service';
 import { VideoService } from '../../services/video.service';
@@ -8,7 +8,8 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-shows-list',
   templateUrl: './shows-list.component.html',
-  styleUrl: './shows-list.component.css'
+  styleUrl: './shows-list.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ShowsListComponent {
   @Input() title!: string
@@ -67,5 +68,6 @@ export class ShowsListComponent {
       this.playVideo(id, videoUrl, showTitle, showYear)
     }
   }
+
 
 }

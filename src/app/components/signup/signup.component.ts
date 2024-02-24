@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, Validators } from '@angular/forms';
 import { PasswordValidator } from '../../validators/passwordValidator';
 import { AuthService } from '../../services/auth.service';
@@ -10,7 +10,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrl: './signup.component.css'
+  styleUrl: './signup.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SignupComponent {
   signupForm = this.fb.group({
@@ -37,6 +38,7 @@ export class SignupComponent {
       this.isSigningUp = signupStatus
     })
   }
+
 
   ngAfterViewInit(): void {
     this.spinner.show()
