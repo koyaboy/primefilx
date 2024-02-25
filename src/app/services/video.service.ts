@@ -28,6 +28,6 @@ export class VideoService {
   }
 
   closeVideo(): void {
-    this.overlayRef.detach()
+    this.overlayRef?.detach()
   }
 }
