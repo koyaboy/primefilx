@@ -40,8 +40,9 @@ export class LoginComponent {
   }
 
   onSubmit(): void {
-    const email = this.loginForm.value.email as string
-    const password = this.loginForm.value.password as string
+    let email = this.loginForm.value.email as string
+    email = email.toLowerCase()
+    let password = this.loginForm.value.password as string
 
     let authFlow = this.auth.login(email, password).pipe(
       switchMap(() => this.auth.getUser(email))
@@ -66,6 +67,8 @@ export class LoginComponent {
           progressBar: true,
           timeOut: 3000
         })
+
+        this.spinner.hide()
       }
     })
   }

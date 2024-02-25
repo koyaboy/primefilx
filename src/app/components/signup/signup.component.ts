@@ -46,8 +46,9 @@ export class SignupComponent {
   }
 
   onSubmit() {
-    const email = this.signupForm.value.email as string
-    const password = this.signupForm.value.password as string
+    let email = this.signupForm.value.email as string
+    email = email.toLowerCase()
+    let password = this.signupForm.value.password as string
 
     this.auth.signup(email, password).subscribe({
       next: () => {
@@ -66,6 +67,8 @@ export class SignupComponent {
           progressBar: true,
           timeOut: 3000
         })
+
+        this.spinner.hide()
       }
     })
   }
