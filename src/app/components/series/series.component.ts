@@ -26,6 +26,8 @@ export class SeriesComponent {
   constructor() { }
 
   ngOnInit() {
+    this.showsService.fetchShows()
+
     this.filterValue$.subscribe(newValue => {
       this.filteredSeries = this.series().filter((show) => show.title.includes(newValue))
     })
