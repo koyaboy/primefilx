@@ -16,6 +16,7 @@ class MockShowsService {
   shows = signal<Shows[]>([]);
   filterValue = signal<string>('');
   isLoading = signal<boolean>(false);
+  fetchShows = jest.fn();
   setSearchCategory = jest.fn();
   setFilterValue = jest.fn().mockImplementation((value) => {
     this.filterValue.set(value);
@@ -97,15 +98,15 @@ describe('SeriesComponent', () => {
     expect(component.filteredSeries.length).toBe(2);
   });
 
-  it('should display skeleton loader when isLoading is true', () => {});
+  // it('should display skeleton loader when isLoading is true', () => {});
 
-  it('should hide skeleton loader when isLoading is false', () => {});
+  // it('should hide skeleton loader when isLoading is false', () => {});
 
-  it('should return an empty array when shows is empty', () => {});
+  // it('should return an empty array when shows is empty', () => {});
 
-  it('should return an empty array when no shows match the filterValue', () => {});
+  // it('should return an empty array when no shows match the filterValue', () => {});
 
-  it('should render app-shows-list with filteredSeries when filterValue is not empty', () => {});
+  // it('should render app-shows-list with filteredSeries when filterValue is not empty', () => {});
 
-  it('should render app-shows-list with series when filterValue is empty', () => {});
+  // it('should render app-shows-list with series when filterValue is empty', () => {});
 });
