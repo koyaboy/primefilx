@@ -1,63 +1,62 @@
 <div class="signup">
-    <div class="logo-container">
-        <svg width="33" height="27" xmlns="http://www.w3.org/2000/svg">
-            <path
-                d="m26.463.408 3.2 6.4h-4.8l-3.2-6.4h-3.2l3.2 6.4h-4.8l-3.2-6.4h-3.2l3.2 6.4h-4.8l-3.2-6.4h-1.6a3.186 3.186 0 0 0-3.184 3.2l-.016 19.2a3.2 3.2 0 0 0 3.2 3.2h25.6a3.2 3.2 0 0 0 3.2-3.2V.408h-6.4Z"
-                fill="#FC4747" />
-        </svg>
+  <div class="logo-container">
+    <svg width="33" height="27" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="m26.463.408 3.2 6.4h-4.8l-3.2-6.4h-3.2l3.2 6.4h-4.8l-3.2-6.4h-3.2l3.2 6.4h-4.8l-3.2-6.4h-1.6a3.186 3.186 0 0 0-3.184 3.2l-.016 19.2a3.2 3.2 0 0 0 3.2 3.2h25.6a3.2 3.2 0 0 0 3.2-3.2V.408h-6.4Z"
+        fill="#FC4747" />
+    </svg>
+  </div>
+
+  <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+    <h1>Sign Up</h1>
+
+    <div class="field">
+      <input #emailInput type="text" formControlName="email" placeholder="Email address"
+        [class.invalid]="signupForm.get('email')?.invalid && (signupForm.get('email')?.dirty || signupForm.get('email')?.touched)" />
+
+      <span class="error-message"
+        *ngIf="signupForm.get('email')?.hasError('required') && (signupForm.get('email')?.dirty || signupForm.get('email')?.touched)">
+        Can't be empty
+      </span>
     </div>
 
-    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-        <h1>Sign Up</h1>
+    <div class="field">
+      <input type="password" formControlName="password" placeholder="Password"
+        [class.invalid]="signupForm.get('password')?.invalid && (signupForm.get('password')?.dirty || signupForm.get('password')?.touched)" />
 
-        <div class="field">
-            <input #emailInput type="text" formControlName="email" placeholder="Email address"
-                [class.invalid]="signupForm.get('email')?.invalid && (signupForm.get('email')?.dirty || signupForm.get('email')?.touched)" />
-
-            <span class="error-message"
-                *ngIf="signupForm.get('email')?.hasError('required') && (signupForm.get('email')?.dirty || signupForm.get('email')?.touched)">
-                Can't be empty
-            </span>
-        </div>
-
-        <div class="field">
-            <input type="password" formControlName="password" placeholder="Password"
-                [class.invalid]="signupForm.get('password')?.invalid && (signupForm.get('password')?.dirty || signupForm.get('password')?.touched)" />
-
-            <span class="error-message"
-                *ngIf="signupForm.get('password')?.hasError('required') && (signupForm.get('password')?.dirty || signupForm.get('password')?.touched)">
-                Can't be empty
-            </span>
-        </div>
-
-        <div class="field">
-            <input type="password" formControlName="repeatPassword" placeholder="Repeat Password"
-                [class.invalid]="signupForm.get('repeatPassword')?.invalid && (signupForm.get('repeatPassword')?.dirty || signupForm.get('repeatPassword')?.touched)" />
-
-            <span class="error-message"
-                *ngIf="signupForm?.errors?.['passwordmatcherror'] && (signupForm.get('repeatPassword')?.dirty || signupForm.get('repeatPassword')?.touched)">
-                Passwords must match
-            </span>
-        </div>
-
-        <div>
-            <button type="submit" [disabled]="signupForm.invalid"
-                [ngStyle]="{'opacity': signupForm.invalid ? '0.5' : '1', 'cursor': signupForm.invalid ? 'not-allowed' : 'pointer'}">
-                Create an account
-            </button>
-        </div>
-
-
-        <div class="login-container">
-            <p>Already have an account?</p>
-            <a routerLink="/login"> Login</a>
-        </div>
-    </form>
-
-    <div *ngIf="isSigningUp">
-        <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-jelly-box"
-            [fullScreen]="true">
-            <p style="color: white"> Loading... </p>
-        </ngx-spinner>
+      <span class="error-message"
+        *ngIf="signupForm.get('password')?.hasError('required') && (signupForm.get('password')?.dirty || signupForm.get('password')?.touched)">
+        Can't be empty
+      </span>
     </div>
+
+    <div class="field">
+      <input type="password" formControlName="repeatPassword" placeholder="Repeat Password"
+        [class.invalid]="signupForm.get('repeatPassword')?.invalid && (signupForm.get('repeatPassword')?.dirty || signupForm.get('repeatPassword')?.touched)" />
+
+      <span class="error-message"
+        *ngIf="signupForm?.errors?.['passwordmatcherror'] && (signupForm.get('repeatPassword')?.dirty || signupForm.get('repeatPassword')?.touched)">
+        Passwords must match
+      </span>
+    </div>
+
+    <div>
+      <button type="submit" [disabled]="signupForm.invalid"
+        [ngStyle]="{'opacity': signupForm.invalid ? '0.5' : '1', 'cursor': signupForm.invalid ? 'not-allowed' : 'pointer'}">
+        Create an account
+      </button>
+    </div>
+
+
+    <div class="login-container">
+      <p>Already have an account?</p>
+      <a routerLink="/login"> Login</a>
+    </div>
+  </form>
+
+  <div *ngIf="isSigningUp()">
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-jelly-box" [fullScreen]="true">
+      <p style="color: white"> Loading... </p>
+    </ngx-spinner>
+  </div>
 </div>
