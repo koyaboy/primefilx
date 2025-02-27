@@ -1,54 +1,53 @@
 <div class="login">
-    <div class="logo-container">
-        <svg width="33" height="27" xmlns="http://www.w3.org/2000/svg">
-            <path
-                d="m26.463.408 3.2 6.4h-4.8l-3.2-6.4h-3.2l3.2 6.4h-4.8l-3.2-6.4h-3.2l3.2 6.4h-4.8l-3.2-6.4h-1.6a3.186 3.186 0 0 0-3.184 3.2l-.016 19.2a3.2 3.2 0 0 0 3.2 3.2h25.6a3.2 3.2 0 0 0 3.2-3.2V.408h-6.4Z"
-                fill="#FC4747" />
-        </svg>
+  <div class="logo-container">
+    <svg width="33" height="27" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="m26.463.408 3.2 6.4h-4.8l-3.2-6.4h-3.2l3.2 6.4h-4.8l-3.2-6.4h-3.2l3.2 6.4h-4.8l-3.2-6.4h-1.6a3.186 3.186 0 0 0-3.184 3.2l-.016 19.2a3.2 3.2 0 0 0 3.2 3.2h25.6a3.2 3.2 0 0 0 3.2-3.2V.408h-6.4Z"
+        fill="#FC4747" />
+    </svg>
+  </div>
+
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <h1>Login</h1>
+
+    <div class="field">
+      <input #emailInput type="text" formControlName="email" placeholder="Email address"
+        [class.invalid]="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)" />
+
+      <span class="error-message"
+        *ngIf="loginForm.get('email')?.hasError('required') && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)">
+        Can't be empty
+      </span>
+
     </div>
 
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <h1>Login</h1>
+    <div class="field">
+      <input type="password" formControlName="password" placeholder="Password"
+        [class.invalid]="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)" />
 
-        <div class="field">
-            <input #emailInput type="text" formControlName="email" placeholder="Email address"
-                [class.invalid]="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)" />
-
-            <span class="error-message"
-                *ngIf="loginForm.get('email')?.hasError('required') && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)">
-                Can't be empty
-            </span>
-
-        </div>
-
-        <div class="field">
-            <input type="password" formControlName="password" placeholder="Password"
-                [class.invalid]="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)" />
-
-            <span class="error-message"
-                *ngIf="loginForm.get('password')?.hasError('required') && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)">
-                Can't be empty
-            </span>
-        </div>
-
-        <div>
-            <button type="submit" [disabled]="loginForm.invalid"
-                [ngStyle]="{'opacity': loginForm.invalid ? '0.5' : '1', 'cursor': loginForm.invalid ? 'not-allowed' : 'pointer'}">
-                Login to your account
-            </button>
-        </div>
-
-
-        <div class="sign-up-container">
-            <p>Don't have an account?</p>
-            <a routerLink="/signup"> Sign Up</a>
-        </div>
-    </form>
-
-    <div *ngIf="isLoggingIn">
-        <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-jelly-box"
-            [fullScreen]="true">
-            <p style="color: white"> Loading... </p>
-        </ngx-spinner>
+      <span class="error-message"
+        *ngIf="loginForm.get('password')?.hasError('required') && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)">
+        Can't be empty
+      </span>
     </div>
+
+    <div>
+      <button type="submit" [disabled]="loginForm.invalid"
+        [ngStyle]="{'opacity': loginForm.invalid ? '0.5' : '1', 'cursor': loginForm.invalid ? 'not-allowed' : 'pointer'}">
+        Login to your account
+      </button>
+    </div>
+
+
+    <div class="sign-up-container">
+      <p>Don't have an account?</p>
+      <a routerLink="/signup"> Sign Up</a>
+    </div>
+  </form>
+
+  <div *ngIf="isLoggingIn()">
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-jelly-box" [fullScreen]="true">
+      <p style="color: white"> Loading... </p>
+    </ngx-spinner>
+  </div>
 </div>

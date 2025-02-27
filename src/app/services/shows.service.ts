@@ -4,45 +4,72 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { finalize, shareReplay } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { toSignal } from "@angular/core/rxjs-interop"
-
+import { toSignal } from '@angular/core/rxjs-interop';
+import { computed } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ShowsService {
-  private apiUrl = environment.SHOWS_API_URL
+  apiUrl = environment.SHOWS_API_URL;
 
-  http: HttpClient = inject(HttpClient)
+  http: HttpClient = inject(HttpClient);
 
-  filterValue = signal<string>('')
-  isLoading = signal<boolean>(true)
+  filterValue = signal<string>('');
+  isLoading = signal<boolean>(true);
+  category = signal<string>('');
+  #shows = signal<Shows[]>([]);
+  shows = computed(this.#shows);
+  #bookmarkedShows = signal<Shows[]>([]);
+  bookmarkedShows = computed(this.#bookmarkedShows);
 
-  shows$ = this.http.get<Shows[]>(this.apiUrl, { withCredentials: true }).pipe(
-    shareReplay(),
-    finalize(() => {
-      this.isLoading.set(false)
-    })
-  )
+  constructor() {}
 
-  shows = toSignal(this.shows$) as Signal<Shows[]>
+  toggleBookmark(showId: string) {
+    const updatedShows = this.shows().map((show) =>
+      show._id === showId ? { ...show, isBookmarked: !show.isBookmarked } : show
+    );
 
-  category = signal<string>("")
+    this.#shows.set(updatedShows);
+    this.#bookmarkedShows.set(updatedShows.filter((show) => show.isBookmarked));
+
+    this.updateBookmark(showId).subscribe();
+  }
+
+  fetchShows(): void {
+    if (this.shows().length !== 0) {
+      return;
+    }
+    this.isLoading.set(true);
+    this.http
+      .get<Shows[]>(this.apiUrl, { withCredentials: true })
+      .pipe(finalize(() => this.isLoading.set(false)))
+      .subscribe((shows) => {
+        this.#shows.set(shows);
+        this.getBookmarkedShows();
+      });
+  }
+
+  getBookmarkedShows() {
+    this.#bookmarkedShows.set(this.shows().filter((show) => show.isBookmarked));
+  }
 
   updateBookmark(id: string): Observable<Shows> {
-    return this.http.put<Shows>(`${this.apiUrl}/${id}`, {}, { withCredentials: true }).pipe()
+    return this.http
+      .put<Shows>(`${this.apiUrl}/${id}`, {}, { withCredentials: true })
+      .pipe();
   }
 
   setSearchCategory(categoryValue: string): void {
-    this.category.set(categoryValue)
+    this.category.set(categoryValue);
   }
 
   setFilterValue(value: string): void {
-    this.filterValue.set(value)
+    this.filterValue.set(value);
   }
 
   filterShows(filter: string): string {
-    this.setFilterValue(filter)
-    return this.filterValue()
+    this.setFilterValue(filter);
+    return this.filterValue();
   }
 }
