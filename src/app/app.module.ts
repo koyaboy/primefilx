@@ -22,7 +22,6 @@ import { MoviesComponent } from './components/movies/movies.component';
 import { SeriesComponent } from './components/series/series.component';
 import { BookmarksComponent } from './components/bookmarks/bookmarks.component';
 import { ShowsListComponent } from './components/shows-list/shows-list.component';
-import { SkeletonLoaderDirective } from './directives/skeleton-loader.directive';
 import { SkeletonComponent } from './components/skeleton/skeleton.component';
 import { TrendingSkeletonComponent } from './components/trending-skeleton/trending-skeleton.component';
 import { LoginComponent } from './components/login/login.component';
@@ -34,7 +33,6 @@ import { VideoPlayerModule } from './components/video-player/video-player.module
 
 @NgModule({
   declarations: [
-    SkeletonLoaderDirective,
     AppComponent,
     HeaderComponent,
     SearchbarComponent,
