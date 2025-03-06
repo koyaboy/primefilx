@@ -3,13 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './components/home/home.component';
 import { LayoutComponent } from './components/layout/layout.component';
-import { MoviesComponent } from './components/movies/movies.component';
-import { SeriesComponent } from './components/series/series.component';
-import { BookmarksComponent } from './components/bookmarks/bookmarks.component';
-import { LoginComponent } from './components/login/login.component';
-import { authGuard } from './guards/auth.guard';
-import { VideoPlayerComponent } from './components/video-player/video-player.component';
-import { SignupComponent } from './components/signup/signup.component';
 
 const routes: Routes = [
   {

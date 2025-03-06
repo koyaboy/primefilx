@@ -1,6 +1,5 @@
 import {
   Component,
-  Renderer2,
   Signal,
   inject,
   computed,
@@ -8,10 +7,8 @@ import {
 } from '@angular/core';
 import { ShowsService } from '../../services/shows.service';
 import { Shows } from '../../models/shows';
-import { Router } from '@angular/router';
 import { VideoService } from '../../services/video.service';
 import { toObservable } from '@angular/core/rxjs-interop';
-import { ShowsListComponent } from '../shows-list/shows-list.component';
 
 @Component({
   selector: 'app-home',
