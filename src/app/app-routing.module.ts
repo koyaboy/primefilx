@@ -17,9 +17,27 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       { path: '', component: HomeComponent },
-      { path: 'movies', component: MoviesComponent },
-      { path: 'series', component: SeriesComponent },
-      { path: 'bookmarks', component: BookmarksComponent },
+      {
+        path: 'movies',
+        loadComponent: () =>
+          import('./components/movies/movies.component').then(
+            (m) => m.MoviesComponent
+          ),
+      },
+      {
+        path: 'series',
+        loadComponent: () =>
+          import('./components/series/series.component').then(
+            (m) => m.SeriesComponent
+          ),
+      },
+      {
+        path: 'bookmarks',
+        loadComponent: () =>
+          import('./components/bookmarks/bookmarks.component').then(
+            (m) => m.BookmarksComponent
+          ),
+      },
       {
         path: 'video/:id',
         loadChildren: () =>
